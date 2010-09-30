@@ -12,7 +12,7 @@ import javax.microedition.lcdui.game.Sprite;
  *
  * @author Fer
  */
-public class Avatar extends Objeto{
+public class Avatar extends Sprite{
 
     private int anchoPantalla;
     private int altoPantalla;
@@ -24,22 +24,18 @@ public class Avatar extends Objeto{
     private AdministradorJuego administrador;
 
 
-    public Avatar(int x, int y, String archivo) throws IOException {
+    public Avatar(int ancho, int alto, int x, int y, String archivo) throws IOException {
 
-        super (x, y, archivo);
-        setPosition(super.x, super.y);
+        super (Image.createImage(archivo),ancho,alto);
+        setPosition(x, y);
         contadorPowerUps = 0;
         escudoActivado = false;
         vidas = 3;
         cargaSolar = 10;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    public void actualizarPosicion(int x, int y) {
+        setPosition(x, y);
     }
 
     public void disparar() {
