@@ -9,7 +9,9 @@ import javax.microedition.lcdui.game.GameCanvas;
  */
 public class AdministradorJuego extends GameCanvas {
 
+    private boolean pointIsDragged;
      private Graphics g;
+     private Avatar avatar;
      
      public static int ANCHO;        // Ancho y alto de la pantalla del celular
      public static int ALTO;
@@ -34,7 +36,7 @@ public class AdministradorJuego extends GameCanvas {
         g.setColor(0x00FF00);
         g.fillRect(0, 0, ANCHO, ALTO);
 
-        // Dibujar  todos los objetos de la aplicación
+         /*// Dibujar  todos los objetos de la aplicación
         fondo.dibujar(g);
         mapa.dibujar(g);
 
@@ -52,12 +54,35 @@ public class AdministradorJuego extends GameCanvas {
 
         g.drawString(m+":"+s, 30, 10, Graphics.LEFT|Graphics.TOP);
 
-        flushGraphics();    // Actualiza los cambios en la memoria de la pantalla
+        flushGraphics();    // Actualiza los cambios en la memoria de la pantalla*/
     }
 
-    private void moverAvatar(int teclado) {
+    protected void pointDragged(int x, int y) {
+        if(x == avatar.getX() && y == avatar.getY()) { //Si el puntero esta en el mismo punto que la nave
+            this.pointIsDragged = true; //Empieza a disparar
+            avatar.setX(x); //Dice cuanto moverse
+            avatar.setY(y);
+        }
 
     }
+    
+    protected void pointReleased (int x, int y) {
+        this.pointIsDragged = false; //Deja de disparar
+    }
+
+    public boolean getPointIsDragged() {
+        return this.pointIsDragged;
+    }
+
+    /*/Para saber si la nave debe de disparar o no
+    protected boolean pointPressed (int x, int y) {
+        if (x == avatar.getX() && y == avatar.getY())
+            return true;
+        else
+            return false;
+    }
+     */
+
     private void verificarChoque() {
 
 

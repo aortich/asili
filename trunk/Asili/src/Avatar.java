@@ -12,23 +12,45 @@ import javax.microedition.lcdui.game.Sprite;
  *
  * @author Fer
  */
-public class Avatar extends Sprite{
+public class Avatar extends Objeto{
 
     private int anchoPantalla;
     private int altoPantalla;
     private int INC_X, INC_Y;
+    private int contadorPowerUps;
+    private boolean escudoActivado;
+    private int vidas;
+    private int cargaSolar;
+    private AdministradorJuego administrador;
 
 
     public Avatar(int x, int y, String archivo) throws IOException {
 
-        super ( Image.createImage(archivo));
-        //this.x = x;
-        //this.y = y;
-        setPosition(x, y);
-
-//        this.ancho = ancho;
-//        this.alto = alto;
-        INC_X = 3;
-        INC_Y = 0;
+        super (x, y, archivo);
+        setPosition(super.x, super.y);
+        contadorPowerUps = 0;
+        escudoActivado = false;
+        vidas = 3;
+        cargaSolar = 10;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void disparar() {
+        if(administrador.getPointIsDragged() == true) {
+            //Dispara
+        }
+    }
+
+
+
+
+
+
 }

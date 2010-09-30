@@ -10,9 +10,12 @@ import javax.microedition.lcdui.game.Sprite;
  */
 public class Objeto extends Sprite {
 
-    private int INC_X, INC_Y;
+    private int x, y;
+    
 
-    public Objeto(String archivo) throws IOException {
+    public Objeto(int x, int y, String archivo) throws IOException {
         super(Image.createImage(archivo));
+        this.x = x;
+        this.y = y;
     }
 }
