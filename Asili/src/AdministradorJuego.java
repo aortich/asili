@@ -60,8 +60,7 @@ public class AdministradorJuego extends GameCanvas {
     protected void pointDragged(int x, int y) {
         if(x == avatar.getX() && y == avatar.getY()) { //Si el puntero esta en el mismo punto que la nave
             this.pointIsDragged = true; //Empieza a disparar
-            avatar.setX(x); //Dice cuanto moverse
-            avatar.setY(y);
+            avatar.actualizarPosicion(x, y);
         }
 
     }
