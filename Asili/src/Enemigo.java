@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.game.Sprite;
 
 /*
  * To change this template, choose Tools | Templates
@@ -11,9 +12,9 @@ import javax.microedition.lcdui.Image;
  *
  * @author Fer
  */
-public class Enemigo extends Objeto {
+public class Enemigo extends Sprite {
 
-    public Enemigo(String archivo) throws IOException {
-        super(archivo);
+    public Enemigo(int ancho, int alto, String archivo) throws IOException {
+        super(Image.createImage(archivo),ancho,alto);
     }
 }
