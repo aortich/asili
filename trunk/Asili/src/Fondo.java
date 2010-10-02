@@ -16,6 +16,11 @@ public class Fondo {
 
     }
 
+    public void dibujar(Graphics g) {
+
+        super.paint(g);
+    }
+
         public void actualizar() {
 
         this.y = y - scrollSpeed;
