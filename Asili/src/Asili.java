@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
@@ -21,10 +22,11 @@ public class Asili extends GameCanvas {
     private Animador animador;  // Estará avisando a cada rato que se actualice y dibuje queda pendiente la clase
     private Graphics g;
     private AppAsili midlet;
+    private boolean pointIsDragged;
 
     public Asili (AppAsili midlet) {
         super(true);
-
+        this.pointIsDragged = false;
         this.midlet = midlet;
         this.setFullScreenMode(true);
         this.ANCHO = this.getWidth();
@@ -32,21 +34,42 @@ public class Asili extends GameCanvas {
         g = this.getGraphics();
 
         try {
-            avatar = new Avatar(5,5,ANCHO,ALTO,"/avatar.jpg");
-            fondo = new Fondo("/fondo.jpg", 0, 0);
-            fondoPausa = new Fondo("/pausa.png", 0, 0);
-            Image img = Image.createImage("/linea.png");   //*********************
-            indicador = new Sprite(img, 20, 20);
-            int[] secuencia = { 0,0,0,2 };
-            indicador.setFrameSequence(secuencia);
-            raqueta = new Raqueta(getWidth()/2, getHeight()-10, "/raqueta.jpg");
-            mapa = new Mapa();
-            mapa.crearMapa();
+            avatar = new Avatar(0, 3);
+            fondo = new Fondo("/fondo.jpg", 1);
+            //fondoPausa = new Fondo("/pausa.png", 0, 0); No sabemos ni que pex
         } catch (IOException ex) {
             System.out.println("No se pueden cargar los fondos");
         }
 
         
+    }
+
+        protected void pointDragged(int x, int y) {
+        if(x == avatar.getX() && y == avatar.getY()) { //Si el puntero esta en el mismo punto que la nave
+            this.pointIsDragged = true; //Empieza a disparar
+            avatar.setINCX(x);
+            avatar.setINCY(y);
+        }
+
+    }
+
+    protected void pointReleased (int x, int y) {
+        this.pointIsDragged = false; //Deja de disparar
+    }
+
+    public boolean getPointIsDragged() {
+        return this.pointIsDragged;
+    }
+
+
+    public void actualizar() {
+        avatar.mover();
+
+    }
+
+    public void dibujar() {
+        fondo.dibujar(g);
+        avatar.dibujar(g);
     }
 
 }

@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
 /*
@@ -15,7 +16,7 @@ import javax.microedition.lcdui.game.Sprite;
 public class Proyectil extends Sprite {
 
     public Proyectil(String archivo) throws IOException {
-        super(archivo);
+        super(Image.createImage(archivo));
     }
 
     public void dibujar(Graphics g) {
