@@ -35,7 +35,7 @@ public class Asili extends GameCanvas {
 
         try {
             avatar = new Avatar(0, 3);
-            fondo = new Fondo("/fondo.jpg", 1);
+            fondo = new Fondo("/Media/FondoNivel1.jpg", 1);
             //fondoPausa = new Fondo("/pausa.png", 0, 0); No sabemos ni que pex
         } catch (IOException ex) {
             System.out.println("No se pueden cargar los fondos");
