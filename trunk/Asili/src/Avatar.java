@@ -27,7 +27,7 @@ public class Avatar extends Sprite{
 
     public Avatar(int x, int y) throws IOException {
 
-        super (Image.createImage("/Media/avatarSprite.png"),100, 100);
+        super (Image.createImage("/imagenes/avatarSprite.png"),100, 100);
         setPosition(x, y);
         super.setFrame(2);
         super.setFrameSequence(new int [] {0, 1, 2, 3, 4});
