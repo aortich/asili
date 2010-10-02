@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
@@ -32,6 +33,11 @@ public class Avatar extends Sprite{
         escudoActivado = false;
         vidas = 3;
         cargaSolar = 10;
+    }
+
+    public void dibujar(Graphics g) {
+
+        super.paint(g);
     }
 
     public void actualizarPosicion(int x, int y) {
