@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 
@@ -18,7 +19,11 @@ public class Fondo {
 
     public void dibujar(Graphics g) {
 
-        super.paint(g);
+        g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
+        if( y < -(imagen.getHeight() - 640)) {
+            g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
+        }
+
     }
 
         public void actualizar() {
