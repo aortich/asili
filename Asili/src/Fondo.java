@@ -12,7 +12,7 @@ public class Fondo {
     public Fondo (String archivo, int speed) throws IOException {
         imagen = Image.createImage(archivo);
         this.x = 0;
-        this.y = 0;
+        this.y = (-imagen.getHeight() + Asili.ALTO);
         this.scrollSpeed = speed;
 
     }
@@ -20,17 +20,19 @@ public class Fondo {
     public void dibujar(Graphics g) {
 
         g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
-        if( y < -(imagen.getHeight() - 640)) {
-            g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
+        if( y > (imagen.getHeight() - Asili.ALTO)) {
+            g.drawImage(imagen, x, imagen.getHeight(), Graphics.LEFT|Graphics.TOP);
         }
 
     }
 
         public void actualizar() {
 
-        this.y = y - scrollSpeed;
-        if ( this.y<=-imagen.getHeight()) { // Si ya se salió completamente la imagen
-            y=0;    // Repetir
+        this.y = this.y + scrollSpeed;
+        if ( this.y>=(imagen.getHeight() - Asili.ALTO)) { // Si ya se salió completamente la imagen
+            System.out.println(y);
+            y=(-imagen.getHeight() + Asili.ALTO);
+            System.out.println(y);// Repetir
         }
     }
 }

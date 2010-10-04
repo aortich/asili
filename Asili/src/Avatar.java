@@ -29,6 +29,7 @@ public class Avatar extends Sprite{
 
         super (Image.createImage("/imagenes/avatarSprite.png"),100, 100);
         setPosition(x, y);
+        //super.setRefPixelPosition(-50, -50);
         super.setFrame(2);
         super.setFrameSequence(new int [] {0, 1, 2, 3, 4});
         contadorPowerUps = 0;
@@ -53,10 +54,10 @@ public class Avatar extends Sprite{
     }
 
     public void mover() {
-        if(this.getX() + INC_X > this.getX()) {
+        if(INC_X > this.getX()) {
             super.setFrame(3);
         }
-        if(this.getX() + INC_X < this.getX()) {
+        if(INC_X < this.getX()) {
             super.setFrame(1);
         }
         setPosition(INC_X, INC_Y);
