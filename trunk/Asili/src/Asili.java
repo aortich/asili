@@ -24,7 +24,7 @@ public class Asili extends GameCanvas {
     private AppAsili midlet;
     private boolean pointIsDragged;
     private Vector balas;
-    private Reloj reloj;
+//    private Reloj reloj;
 
     public Asili(AppAsili midlet) {
         super(true);
@@ -52,7 +52,7 @@ public class Asili extends GameCanvas {
 
 
     }
-
+    
     protected void pointerPressed(int aX, int aY) {
         if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
