@@ -29,6 +29,7 @@ public class AppAsili extends MIDlet {
         asili = new Asili(this);
         splash= new Alert(null,null,imagen,null);
         splash.setTimeout(5000);
+        splash.
         ///Probablemente aquí haya que ponerle un modo de fullscreen
     }
     public void startApp() {
