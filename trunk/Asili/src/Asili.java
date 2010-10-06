@@ -1,5 +1,7 @@
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
@@ -21,15 +23,19 @@ public class Asili extends GameCanvas {
     private Graphics g;
     private AppAsili midlet;
     private boolean pointIsDragged;
+    private Vector balas;
+    private Reloj reloj;
 
     public Asili(AppAsili midlet) {
         super(true);
         this.pointIsDragged = false;
+        
         this.midlet = midlet;
         this.setFullScreenMode(true);
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
         g = this.getGraphics();
+        balas = new Vector();
 
         try {
             avatar = new Avatar(0, 3);
@@ -48,10 +54,10 @@ public class Asili extends GameCanvas {
     }
 
     protected void pointerPressed(int aX, int aY) {
-        if(aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth()) 
+        if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
             this.pointIsDragged = true;
-           // System.out.println(this.pointIsDragged);
+            // System.out.println(this.pointIsDragged);
             //System.out.println(aX + ", " + avatar.getX());
             //System.out.println(aY + ", " + avatar.getY());
         } else {
@@ -61,7 +67,6 @@ public class Asili extends GameCanvas {
             //System.out.println(aY + ", " + avatar.getY());
         }
     }
-
 
     protected void pointerDragged(int aX, int aY) {
         if (this.pointIsDragged == true) { //Si el puntero esta en el mismo punto que la nave //Empieza a disparar
@@ -80,16 +85,46 @@ public class Asili extends GameCanvas {
         return this.pointIsDragged;
     }
 
+    public void disparar() {
+        if (this.pointIsDragged == true) {
+            try {
+                balas.addElement(new BalaAvatarNivel1(avatar.getRefPixelX(), avatar.getRefPixelY() + avatar.getHeight() / 2));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public void actualizar() {
         avatar.mover();
         fondo.actualizar();
+        this.disparar();
+        int i = 0;
+        if (! balas.isEmpty()) {
+            for (Enumeration a = balas.elements(); a.hasMoreElements();) {
+                Proyectil proyectilGenerico = (Proyectil) balas.elementAt(i);
+                proyectilGenerico.actualizar();
+                balas.insertElementAt(proyectilGenerico, i);
+                a.nextElement();
+                i++;
+            }
+        }
 
     }
 
     public void dibujar() {
         fondo.dibujar(g);
         avatar.dibujar(g);
-
+        int i = 0;
+        if (! balas.isEmpty()) {
+            for (Enumeration a = balas.elements(); a.hasMoreElements();) {
+                Proyectil proyectilGenerico = (Proyectil) balas.elementAt(i);
+                proyectilGenerico.dibujar(g);
+                balas.insertElementAt(proyectilGenerico, i);
+                a.nextElement();
+                i++;
+            }
+        }
         flushGraphics();
     }
 }

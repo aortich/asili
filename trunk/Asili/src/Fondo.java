@@ -20,8 +20,9 @@ public class Fondo {
     public void dibujar(Graphics g) {
 
         g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
+
         if( y > (imagen.getHeight() - Asili.ALTO)) {
-            g.drawImage(imagen, x, imagen.getHeight(), Graphics.LEFT|Graphics.TOP);
+            g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
         }
 
     }
@@ -30,9 +31,9 @@ public class Fondo {
 
         this.y = this.y + scrollSpeed;
         if ( this.y>=(imagen.getHeight() - Asili.ALTO)) { // Si ya se salió completamente la imagen
-            System.out.println(y);
-            y=(-imagen.getHeight() + Asili.ALTO);
-            System.out.println(y);// Repetir
+            //System.out.println(y);
+            y=(-imagen.getHeight() - Asili.ALTO);
+            //System.out.println(y);// Repetir
         }
     }
 }
