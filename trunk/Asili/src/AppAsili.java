@@ -14,36 +14,36 @@ public class AppAsili extends MIDlet {
 
     private Asili asili;
     private Alert splash;
-
+    private Image imagen;
 
      
     public AppAsili() {
 
+        try {
+            imagen = Image.createImage("/imagenes/logoTec.jpg");
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
         asili = new Asili(this);
+        splash= new Alert(null,null,imagen,null);
+        splash.setTimeout(5000);
+        ///Probablemente aquí haya que ponerle un modo de fullscreen
     }
     public void startApp() {
-        splash = new Alert("");
 
-        crearSplash();
+         Display.getDisplay(this).setCurrent(splash);
+         try {
+             Thread.sleep(5000);
+         }
+         catch (InterruptedException ex) {
+             ex.printStackTrace();          }
         Display.getDisplay(this).setCurrent(asili);
         
 
     }
 
-    void crearSplash() {
-        try {
-            Image imagen = Image.createImage("/imagenes/logoTec.jpg");
-            splash.setTimeout(Alert.FOREVER);
-            splash.setType(AlertType.INFO);
-            splash.setImage(imagen);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-
-        
-    
-    }
 
     public void pauseApp() {
     }
