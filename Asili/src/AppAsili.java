@@ -41,6 +41,7 @@ public class AppAsili extends MIDlet {
          catch (InterruptedException ex) {
              ex.printStackTrace();          }
         Display.getDisplay(this).setCurrent(asili);
+
         
 
     }
