@@ -11,7 +11,8 @@
 public class Animador implements Runnable {
 
     private Asili asili;
-    private MenuPrincipal menu;// Juego debería ser una interface
+    private MenuPrincipal menu;
+    private SplashScreenTEC splash;
     private boolean corriendo;
     private Thread thread;
     private static final int FPS = 50;
@@ -20,14 +21,23 @@ public class Animador implements Runnable {
 
     public Animador(Asili juego) {
         this.menu = null;
+        this.splash = null;
         this.asili = juego;
         this.caso = 1;
     }
 
     public Animador(MenuPrincipal menu) {
         this.menu = menu;
+        this.splash = null;
         this.asili = null;
         this.caso = 2;
+    }
+
+    public Animador(SplashScreenTEC splash) {
+        this.menu = null;
+        this.splash = splash;
+        this.asili = null;
+        this.caso = 3;
     }
 
     public void iniciar() {
@@ -69,6 +79,9 @@ public class Animador implements Runnable {
                 menu.actualizar();
                 break;
 
+            case 3:
+                splash.actualizar();
+
             default:
                 break;
         }
@@ -83,6 +96,10 @@ public class Animador implements Runnable {
 
             case 2:
                 menu.dibujar();
+                break;
+
+            case 3:
+                splash.dibujar();
                 break;
 
             default:

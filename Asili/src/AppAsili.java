@@ -13,7 +13,7 @@ import javax.microedition.midlet.*;
 public class AppAsili extends MIDlet {
 
     private Asili asili;
-    private Alert splash;
+    private SplashScreenTEC splash;
     private Image imagen;
     private MenuPrincipal menuPrincipal;
     public Display display;
@@ -30,14 +30,20 @@ public class AppAsili extends MIDlet {
         //asili = new Asili(this);
         menuPrincipal= new MenuPrincipal (this);
         asili = new Asili (this);
-        splash= new Alert("ITESM CEM","ITESM CEM",imagen,null);
-        splash.setTimeout(5000);
+        splash= new SplashScreenTEC(this);
         
         ///Probablemente aquí haya que ponerle un modo de fullscreen
     }
     public void startApp() {
 
+         display.setCurrent(splash);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
          display.setCurrent(menuPrincipal);
+
 
     }
 
