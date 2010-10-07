@@ -12,6 +12,9 @@ import javax.microedition.lcdui.game.GameCanvas;
 public class Asili extends GameCanvas {
 
     private Fondo fondo;
+    private static final int LIMITE_PROYECTILES = 30;
+    private int contadorBalas;
+    private ControladorProyectil controladorProyectiles;
     private Avatar avatar;
     private Proyectil proyectil;
     private Enemigo enemigo;
@@ -22,20 +25,18 @@ public class Asili extends GameCanvas {
     private Animador animador;  // Estará avisando a cada rato que se actualice y dibuje queda pendiente la clase
     private Graphics g;
     private AppAsili midlet;
-    private boolean pointIsDragged;
-    private Vector balas;
-//    private Reloj reloj;
+    private boolean pointIsDragged, disparando;
 
     public Asili(AppAsili midlet) {
         super(true);
         this.pointIsDragged = false;
-        
+        this.disparando = true;
+        this.setFullScreenMode(true);
         this.midlet = midlet;
         this.setFullScreenMode(true);
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
         g = this.getGraphics();
-        balas = new Vector();
 
         try {
             avatar = new Avatar(0, 3);
@@ -57,9 +58,14 @@ public class Asili extends GameCanvas {
         if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
             this.pointIsDragged = true;
-            // System.out.println(this.pointIsDragged);
-            //System.out.println(aX + ", " + avatar.getX());
-            //System.out.println(aY + ", " + avatar.getY());
+            if(this.disparando == false && this.contadorBalas < this.LIMITE_PROYECTILES ){
+                try {
+                    this.controladorProyectiles.add(new BalaAvatarNivel1(avatar.getRefPixelX(), avatar.getY()));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                this.disparando = true;
+            }
         } else {
             this.pointIsDragged = false;
             //System.out.println(this.pointIsDragged);
@@ -79,36 +85,17 @@ public class Asili extends GameCanvas {
 
     protected void pointerReleased(int x, int y) {
         this.pointIsDragged = false; //Deja de disparar
+        this.disparando = false;
     }
 
     public boolean getPointIsDragged() {
         return this.pointIsDragged;
     }
 
-    public void disparar() {
-        if (this.pointIsDragged == true) {
-            try {
-                balas.addElement(new BalaAvatarNivel1(avatar.getRefPixelX(), avatar.getRefPixelY() + avatar.getHeight() / 2));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
     public void actualizar() {
         avatar.mover();
         fondo.actualizar();
-        this.disparar();
         int i = 0;
-        if (! balas.isEmpty()) {
-            for (Enumeration a = balas.elements(); a.hasMoreElements();) {
-                Proyectil proyectilGenerico = (Proyectil) balas.elementAt(i);
-                proyectilGenerico.actualizar();
-                balas.insertElementAt(proyectilGenerico, i);
-                a.nextElement();
-                i++;
-            }
-        }
 
     }
 
@@ -116,15 +103,6 @@ public class Asili extends GameCanvas {
         fondo.dibujar(g);
         avatar.dibujar(g);
         int i = 0;
-        if (! balas.isEmpty()) {
-            for (Enumeration a = balas.elements(); a.hasMoreElements();) {
-                Proyectil proyectilGenerico = (Proyectil) balas.elementAt(i);
-                proyectilGenerico.dibujar(g);
-                balas.insertElementAt(proyectilGenerico, i);
-                a.nextElement();
-                i++;
-            }
-        }
         flushGraphics();
     }
 }

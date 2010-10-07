@@ -15,13 +15,14 @@ import javax.microedition.lcdui.game.Sprite;
 public class Proyectil extends Sprite {
 
     int dano;
-    boolean impacto = false;
+    boolean impacto, fueraDeLimites;
     int velocidadHorizontal;
     int velocidadVertical;
 
     public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, String archivo) throws IOException {
         super(Image.createImage(archivo), ancho, alto);
         this.velocidadHorizontal = velocidadH;
+        this.impacto = false; this.fueraDeLimites = false;
         this.velocidadVertical = velocidadV;
         super.setPosition(x, y);
         super.setRefPixelPosition(this.getWidth() / 2, this.getHeight());
@@ -37,7 +38,7 @@ public class Proyectil extends Sprite {
         super.move(this.velocidadHorizontal, this.velocidadVertical);
         if ((this.getY() + this.getHeight()) > Asili.ALTO || this.getY() - this.getHeight() < Asili.ALTO
                 || this.getX() + this.getWidth() > Asili.ANCHO || this.getX() - this.getWidth() < Asili.ANCHO ) {
-            impacto = true;
+            fueraDeLimites = true;
         }
     }
 }
