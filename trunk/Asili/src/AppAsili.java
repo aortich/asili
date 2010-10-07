@@ -2,8 +2,8 @@
 
 import java.io.IOException;
 import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.*;
 
@@ -25,11 +25,11 @@ public class AppAsili extends MIDlet {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        
         asili = new Asili(this);
-        splash= new Alert(null,null,imagen,null);
+        splash= new Alert("ITESM CEM","ITESM CEM",imagen,null);
         splash.setTimeout(5000);
-        splash.
+        
         ///Probablemente aquí haya que ponerle un modo de fullscreen
     }
     public void startApp() {
