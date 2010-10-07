@@ -30,10 +30,10 @@ public class Asili extends GameCanvas {
     public Asili(AppAsili midlet) {
         super(true);
         this.pointIsDragged = false;
+        this.controladorProyectiles = new ControladorProyectil();
         this.disparando = true;
         this.setFullScreenMode(true);
         this.midlet = midlet;
-        this.setFullScreenMode(true);
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
         g = this.getGraphics();
@@ -55,22 +55,17 @@ public class Asili extends GameCanvas {
     }
     
     protected void pointerPressed(int aX, int aY) {
+        System.out.println("( " + aX + ", " + aY + ")");
         if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
             this.pointIsDragged = true;
-            if(this.disparando == false && this.contadorBalas < this.LIMITE_PROYECTILES ){
-                try {
-                    this.controladorProyectiles.add(new BalaAvatarNivel1(avatar.getRefPixelX(), avatar.getY()));
-                } catch (IOException ex) {
+            try {
+                this.disparar();
+            } catch (IOException ex) {
                     ex.printStackTrace();
-                }
-                this.disparando = true;
             }
         } else {
             this.pointIsDragged = false;
-            //System.out.println(this.pointIsDragged);
-            //System.out.println(aX + ", " + avatar.getX());
-            //System.out.println(aY + ", " + avatar.getY());
         }
     }
 
@@ -78,9 +73,15 @@ public class Asili extends GameCanvas {
         if (this.pointIsDragged == true) { //Si el puntero esta en el mismo punto que la nave //Empieza a disparar
             avatar.setINCX(aX);
             avatar.setINCY(aY);
-            System.out.println(true);
         }
 
+    }
+
+    public void disparar() throws IOException{
+        if(this.contadorBalas < this.LIMITE_PROYECTILES) {
+            this.controladorProyectiles.add(new BalaAvatarNivel1(this.avatar.getRefPixelX(), this.avatar.getY()));
+            System.out.println(this.controladorProyectiles);
+        }
     }
 
     protected void pointerReleased(int x, int y) {
@@ -95,14 +96,14 @@ public class Asili extends GameCanvas {
     public void actualizar() {
         avatar.mover();
         fondo.actualizar();
-        int i = 0;
+        this.controladorProyectiles.actualizar();
 
     }
 
     public void dibujar() {
         fondo.dibujar(g);
         avatar.dibujar(g);
-        int i = 0;
+        this.controladorProyectiles.dibujar(g);
         flushGraphics();
     }
 }

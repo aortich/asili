@@ -9,10 +9,10 @@ public class SpriteInicio extends Sprite{
 
 
     public SpriteInicio(int x, int y) throws IOException {
-        super (Image.createImage("/imagenes/inicioSprite.png"),360, 50);
+        super (Image.createImage("/imagenes/spriteInicio.png"),360, 100);
         setPosition(0, 200);
         super.setFrame(0);
-        super.setFrameSequence(new int [] {0, 1});
+        //super.setFrameSequence(new int [] {0, 1});
         
     }
 

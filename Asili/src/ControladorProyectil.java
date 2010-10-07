@@ -13,23 +13,33 @@ public class ControladorProyectil {
 
     private Proyectil[] proyectiles;
     private int tamano;
-    private int objetosGuardados;
     private int factorCrecimiento;
     private int contador;
+    private int numeroDeObjetos;
 
     public ControladorProyectil() {
         proyectiles = new Proyectil[1];
         this.tamano = 1;
+        this.factorCrecimiento = 50;
+        this.numeroDeObjetos = 0;
+        this.contador = 0;
     }
 
     public ControladorProyectil(int tamano, int factor) {
+        proyectiles = new Proyectil[tamano];
         this.factorCrecimiento = factor;
         this.tamano = tamano;
+        this.numeroDeObjetos = 0;
+        this.contador = 0;
+
     }
 
     public ControladorProyectil(int tamano) {
         proyectiles = new Proyectil[tamano];
         this.tamano = tamano;
+        this.factorCrecimiento = 50;
+        this.numeroDeObjetos = 0;
+        this.contador = 0;
     }
 
     public Proyectil remove(int index) {
@@ -41,6 +51,7 @@ public class ControladorProyectil {
             this.proyectiles[i - 1] = this.proyectiles[i];
         }
         this.tamano--;
+        this.numeroDeObjetos--;
         return removed;
     }
 
@@ -83,6 +94,7 @@ public class ControladorProyectil {
             this.proyectiles[i - 1] = this.proyectiles[i];
         }
         this.tamano--;
+        this.numeroDeObjetos--;
         return true;
     }
 
@@ -104,8 +116,17 @@ public class ControladorProyectil {
         if (this.tamano >= this.proyectiles.length) {
             increaseCapacity();
         }
-        this.proyectiles[this.tamano] = elemento;
+        this.proyectiles[this.numeroDeObjetos] = elemento;
         this.tamano++;
+        this.numeroDeObjetos++;
+    }
+
+    public boolean isEmpty() {
+        if (this.numeroDeObjetos == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void add(int index, Proyectil elemento) {
@@ -125,6 +146,7 @@ public class ControladorProyectil {
         // insert the given element:
         this.proyectiles[index] = elemento;
         this.tamano++;
+        this.numeroDeObjetos++;
     }
 
     /******************************************
@@ -133,22 +155,29 @@ public class ControladorProyectil {
      * Estos son los métodos para dibujar y actualizar
      * ***************************************
      */
-
     public void actualizar() {
-        this.contador = 0;
-        for(this.contador = 0; this.contador <= this.tamano; this.contador++) {
-            this.proyectiles[this.contador].actualizar();
-            if(this.proyectiles[this.contador].fueraDeLimites == true || this.proyectiles[this.contador].impacto == true) {
-                this.remove(this.contador);
-            }
+        if (!this.isEmpty()) {
+            this.contador = 0;
+            for (this.contador = 0; this.contador < this.numeroDeObjetos; this.contador++) {
+                this.proyectiles[this.contador].actualizar();
+                if (this.proyectiles[this.contador].fueraDeLimites == true || this.proyectiles[this.contador].impacto == true) {
+                    this.remove(this.contador);
+                }
 
+            }
         }
     }
-    // Que es eso de graphics
+
     public void dibujar(Graphics g) {
-       this.contador = 0;
-       for(this.contador = 0; this.contador <= this.tamano; this.contador++) {
-           this.proyectiles[this.contador].dibujar(g);
-       }
+        if (!this.isEmpty()) {
+            this.contador = 0;
+            for (this.contador = 0; this.contador < this.numeroDeObjetos; this.contador++) {
+                this.proyectiles[this.contador].dibujar(g);
+            }
+        }
+    }
+
+    public String toString(){
+        return "" + this.numeroDeObjetos;
     }
 }

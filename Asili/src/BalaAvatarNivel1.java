@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import javax.microedition.lcdui.Graphics;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,16 +14,13 @@ public class BalaAvatarNivel1 extends Proyectil{
         super.setTransform(TRANS_MIRROR_ROT270);
         super.setRefPixelPosition(this.getWidth()/2, this.getHeight());
     }
-    /*
-    public void actualizar(int x, int y) {
-        super.move(0, 5);
-        if ((this.getX() + this.getHeight()) > Asili.ALTO) {
-            super.impacto = true;
-        }
-    }
-     *
-     */
 
+    public void dibujar(Graphics g) {
+        super.paint(g);
+    }
     
+    public void actualizar() {
+        super.actualizar();
+    }
 
 }
