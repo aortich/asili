@@ -15,7 +15,7 @@ public class AppAsili extends MIDlet {
     private Asili asili;
     private Alert splash;
     private Image imagen;
-
+    private MenuPrincipal menuPrincipal;
      
     public AppAsili() {
 
@@ -26,7 +26,8 @@ public class AppAsili extends MIDlet {
             ex.printStackTrace();
         }
         
-        asili = new Asili(this);
+        //asili = new Asili(this);
+        menuPrincipal= new MenuPrincipal (this);
         splash= new Alert("ITESM CEM","ITESM CEM",imagen,null);
         splash.setTimeout(5000);
         
@@ -40,7 +41,7 @@ public class AppAsili extends MIDlet {
          }
          catch (InterruptedException ex) {
              ex.printStackTrace();          }
-        Display.getDisplay(this).setCurrent(asili);
+        Display.getDisplay(this).setCurrent(menuPrincipal);
 
         
 

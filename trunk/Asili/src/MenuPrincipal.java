@@ -15,6 +15,9 @@ public class MenuPrincipal extends GameCanvas{
     private int ANCHO,ALTO;
     private Graphics g;
     private Fondo fondo;
+    private SpriteInicio spriteInicio;
+    
+
     
     public MenuPrincipal(AppAsili midlet) {
         super(true);
@@ -27,8 +30,9 @@ public class MenuPrincipal extends GameCanvas{
        
 
         try {
-
+            spriteInicio = new SpriteInicio(0, 3);
             fondo = new Fondo("/imagenes/menuPrincipal.jpg", 0);
+
            
         } catch (IOException ex) {
             System.out.println("No se pueden cargar los fondos");
@@ -37,28 +41,12 @@ public class MenuPrincipal extends GameCanvas{
     
 
     }
-    //comprobación de cajas (Qué opción de selaccionó)
-    protected void pointerReleased(int x, int y) {
-
-        //inicio
-        if (y>378 && y<434){
-            
+    //comprobación de cajas (Qué opción de seleccionó)
+    protected void pointerPressed(int aX, int aY) {
+        System.out.println("x:"+aX+"y:"+aY );
+        
         }
-        //trama
-        else if(y >318  && y < 378){
-
-        }
-        else if(y > 261 && y <318)
-        {
-
-        }
-        else if(y > 204 && y < 261)
-        {
-
-        }
-        if (y>150 && y<204){
-
-        }
+              
+        
     }
 
-}
