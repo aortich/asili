@@ -14,25 +14,17 @@ public class AppAsili extends MIDlet {
 
     private Asili asili;
     private SplashScreenTEC splash;
-    private Image imagen;
     private MenuPrincipal menuPrincipal;
     public Display display;
      
     public AppAsili() {
 
-        try {
-            imagen = Image.createImage("/imagenes/logoTec.jpg");
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
         display = Display.getDisplay(this);
-        //asili = new Asili(this);
         menuPrincipal= new MenuPrincipal (this);
         asili = new Asili (this);
         splash= new SplashScreenTEC(this);
         
-        ///Probablemente aquí haya que ponerle un modo de fullscreen
+       
     }
     public void startApp() {
 
