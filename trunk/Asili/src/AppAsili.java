@@ -16,6 +16,7 @@ public class AppAsili extends MIDlet {
     private Alert splash;
     private Image imagen;
     private MenuPrincipal menuPrincipal;
+    public Display display;
      
     public AppAsili() {
 
@@ -25,9 +26,10 @@ public class AppAsili extends MIDlet {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+        display = Display.getDisplay(this);
         //asili = new Asili(this);
         menuPrincipal= new MenuPrincipal (this);
+        asili = new Asili (this);
         splash= new Alert("ITESM CEM","ITESM CEM",imagen,null);
         splash.setTimeout(5000);
         
@@ -35,16 +37,19 @@ public class AppAsili extends MIDlet {
     }
     public void startApp() {
 
-         Display.getDisplay(this).setCurrent(splash);
-         try {
-             Thread.sleep(5000);
-         }
-         catch (InterruptedException ex) {
-             ex.printStackTrace();          }
-        Display.getDisplay(this).setCurrent(menuPrincipal);
+         display.setCurrent(menuPrincipal);
 
-        
+    }
 
+    public void actualizarApp(int opcion) {
+        switch(opcion){
+            case 1:
+                display.setCurrent(asili);
+                break;
+
+            default:
+                break;
+        }
     }
 
 
