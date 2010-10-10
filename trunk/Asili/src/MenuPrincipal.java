@@ -14,6 +14,10 @@ public class MenuPrincipal extends GameCanvas {
     private Graphics g;
     private FondoMenu fondo;
     private SpriteInicio spriteInicio;
+    private SpriteTrama spriteTrama;
+    private SpriteInstrucciones spriteInstrucciones;
+    private SpriteHighscores spriteHighscores;
+    private SpriteCreditos spriteCreditos;
     private Animador animador;
 
     public MenuPrincipal(AppAsili midlet) {
@@ -26,6 +30,10 @@ public class MenuPrincipal extends GameCanvas {
         g = this.getGraphics();
         try {
             spriteInicio = new SpriteInicio(0, 3);
+            spriteTrama = new SpriteTrama(0,3);
+            spriteInstrucciones = new SpriteInstrucciones(0,3);
+            spriteHighscores = new SpriteHighscores (0,3);
+            spriteCreditos = new SpriteCreditos (0,3);
             fondo = new FondoMenu();
         } catch (IOException ex) {
             System.out.println("Error de IO");
@@ -36,20 +44,49 @@ public class MenuPrincipal extends GameCanvas {
 
 
     }
-    //comprobación de cajas (Qué opción de seleccionó)
+    //Comprobación de cajas (Qué opción de seleccionó)
 
     protected void pointerPressed(int aX, int aY) {
+        //Caja de la opción inicio
         if (aX >= (spriteInicio.getX()) && aX <= (spriteInicio.getX() + spriteInicio.getWidth())
                 && aY >= spriteInicio.getY() && aY <= (spriteInicio.getY() + spriteInicio.getHeight())) {
             midlet.actualizarApp(1);
         }
-
+        //Caja de la opción trama
+        if (aX >= (spriteTrama.getX()) && aX <= (spriteTrama.getX() + spriteTrama.getWidth())
+                && aY >= spriteTrama.getY() && aY <= (spriteTrama.getY() + spriteTrama.getHeight())) {
+            //Aquí debe de ir la acción a tomar cuando se pique la opción de trama
+            System.out.println("Trama");
+        }
+        //Caja de la opción instrucciones
+        if (aX >= (spriteInstrucciones.getX()) && aX <= (spriteInstrucciones.getX() + spriteInstrucciones.getWidth())
+                && aY >= spriteInstrucciones.getY() && aY <= (spriteInstrucciones.getY() + spriteInstrucciones.getHeight())) {
+            //Aquí debe de ir la acción a tomar cuando se pique la opción de instrucciones
+            System.out.println("Instrucciones");
+        }
+        //Caja de la opción highscores
+        if (aX >= (spriteHighscores.getX()) && aX <= (spriteHighscores.getX() + spriteHighscores.getWidth())
+                && aY >= spriteHighscores.getY() && aY <= (spriteHighscores.getY() + spriteHighscores.getHeight())) {
+                System.out.println("HS");
+            //Aquí debe de ir la acción a tomar cuando se pique la opción de Highscores
+        }
+        //Caja de la opción creditos
+        if (aX >= (spriteCreditos.getX()) && aX <= (spriteCreditos.getX() + spriteCreditos.getWidth())
+                && aY >= spriteCreditos.getY() && aY <= (spriteCreditos.getY() + spriteCreditos.getHeight())) {
+            //Aquí debe de ir la acción a tomar cuando se pique la opción de creditos
+            System.out.println("Creditos");
+        }
 
     }
 
     public void dibujar(){
         fondo.dibujar(g);
         spriteInicio.dibujar(g);
+        spriteTrama.dibujar(g);
+        spriteInstrucciones.dibujar(g);
+        spriteHighscores.dibujar(g);
+        spriteCreditos.dibujar(g);
+
     }
 
     public void actualizar(){
