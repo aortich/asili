@@ -1,4 +1,6 @@
 
+import java.util.Enumeration;
+import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 
 /*
@@ -11,143 +13,34 @@ import javax.microedition.lcdui.Graphics;
  */
 public class ControladorProyectil {
 
-    private Proyectil[] proyectiles;
+    private Vector contenedor;
     private int tamano;
     private int factorCrecimiento;
     private int contador;
     private int numeroDeObjetos;
+    private Enumeration enumerador;
 
     public ControladorProyectil() {
-        proyectiles = new Proyectil[1];
+        this.contenedor = new Vector();
         this.tamano = 1;
         this.factorCrecimiento = 50;
         this.numeroDeObjetos = 0;
         this.contador = 0;
+        this.enumerador = this.contenedor.elements();
     }
 
-    public ControladorProyectil(int tamano, int factor) {
-        proyectiles = new Proyectil[tamano];
-        this.factorCrecimiento = factor;
-        this.tamano = tamano;
-        this.numeroDeObjetos = 0;
-        this.contador = 0;
+
+    public void AgregarProyectil(Proyectil proyectil) {
+        this.contenedor.addElement(proyectil);
+    }
+
+    public void BorrarProyectil() {
+        
+    }
 
     }
 
-    public ControladorProyectil(int tamano) {
-        proyectiles = new Proyectil[tamano];
-        this.tamano = tamano;
-        this.factorCrecimiento = 50;
-        this.numeroDeObjetos = 0;
-        this.contador = 0;
-    }
 
-    public Proyectil remove(int index) {
-        if (index < 0 || index >= this.tamano) {
-            throw new IndexOutOfBoundsException("the index [" + index + "] is not valid for this list with the size [" + this.tamano + "].");
-        }
-        Proyectil removed = this.proyectiles[index];
-        for (int i = index + 1; i < this.tamano; i++) {
-            this.proyectiles[i - 1] = this.proyectiles[i];
-        }
-        this.tamano--;
-        this.numeroDeObjetos--;
-        return removed;
-    }
-
-    public Proyectil get(int index) {
-        if (index < 0 || index >= this.tamano) {
-            throw new IndexOutOfBoundsException("the index [" + index + "] is not valid for this list with the size [" + this.tamano + "].");
-        }
-        return this.proyectiles[index];
-    }
-
-    public int indexOf(Proyectil elemento) {
-        if (elemento == null) {
-            throw new IllegalArgumentException("ArrayList cannot contain a null element.");
-        }
-        for (int i = 0; i < this.tamano; i++) {
-            Proyectil proyectil = this.proyectiles[i];
-            if (proyectil.equals(elemento)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public boolean remove(Proyectil elemento) {
-        if (elemento == null) {
-            throw new IllegalArgumentException("ArrayList cannot contain null.");
-        }
-        int index = -1;
-        for (int i = 0; i < this.tamano; i++) {
-            Proyectil proyectil = this.proyectiles[i];
-            if (proyectil.equals(elemento)) {
-                index = i;
-                break;
-            }
-        }
-        if (index == -1) {
-            return false;
-        }
-        for (int i = index + 1; i < this.tamano; i++) {
-            this.proyectiles[i - 1] = this.proyectiles[i];
-        }
-        this.tamano--;
-        this.numeroDeObjetos--;
-        return true;
-    }
-
-    private void increaseCapacity() {
-        int currentCapacity = this.proyectiles.length;
-        int nuevaCapacidad = currentCapacity + ((currentCapacity * this.factorCrecimiento) / 100);
-        if (nuevaCapacidad == currentCapacity) {
-            nuevaCapacidad++;
-        }
-        Proyectil[] newStore = new Proyectil[nuevaCapacidad];
-        System.arraycopy(this.proyectiles, 0, newStore, 0, this.tamano);
-        this.proyectiles = newStore;
-    }
-
-    public void add(Proyectil elemento) {
-        if (elemento == null) {
-            throw new IllegalArgumentException("ArrayList cannot contain null.");
-        }
-        if (this.tamano >= this.proyectiles.length) {
-            increaseCapacity();
-        }
-        this.proyectiles[this.numeroDeObjetos] = elemento;
-        this.tamano++;
-        this.numeroDeObjetos++;
-    }
-
-    public boolean isEmpty() {
-        if (this.numeroDeObjetos == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void add(int index, Proyectil elemento) {
-        if (elemento == null) {
-            throw new IllegalArgumentException("ArrayList cannot contain null.");
-        }
-        if (index < 0 || index >= this.tamano) {
-            throw new IndexOutOfBoundsException("the index [" + index + "] is not valid for this list with the size [" + this.tamano + "].");
-        }
-        if (this.tamano >= this.proyectiles.length) {
-            increaseCapacity();
-        }
-        // shift all following elements one position to the back:
-        for (int i = this.tamano; i > index; i--) {
-            this.proyectiles[i] = this.proyectiles[i - 1];
-        }
-        // insert the given element:
-        this.proyectiles[index] = elemento;
-        this.tamano++;
-        this.numeroDeObjetos++;
-    }
 
     /******************************************
      * Aqui terminan los metodos que hacen a ControladorProyectil un pseudo ArrayList
@@ -177,7 +70,3 @@ public class ControladorProyectil {
         }
     }
 
-    public String toString(){
-        return "" + this.numeroDeObjetos;
-    }
-}

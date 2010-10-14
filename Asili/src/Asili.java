@@ -71,8 +71,8 @@ public class Asili extends GameCanvas {
 
     protected void pointerDragged(int aX, int aY) {
         if (this.pointIsDragged == true) { //Si el puntero esta en el mismo punto que la nave //Empieza a disparar
-            avatar.setINCX(aX);
-            avatar.setINCY(aY);
+            avatar.setINCX(aX - avatar.getWidth()/2);
+            avatar.setINCY(aY - avatar.getHeight()/2);
         }
 
     }
