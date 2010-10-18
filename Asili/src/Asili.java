@@ -1,8 +1,7 @@
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
 /**
@@ -12,6 +11,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 public class Asili extends GameCanvas {
 
     private Fondo fondo;
+    public Image balaAvatarUno;
     private static final int LIMITE_PROYECTILES = 30;
     private int contadorBalas;
     private ControladorProyectil controladorProyectiles;
@@ -27,7 +27,8 @@ public class Asili extends GameCanvas {
     private AppAsili midlet;
     private boolean pointIsDragged, disparando;
 
-    public Asili(AppAsili midlet) {
+
+    public Asili(AppAsili midlet) throws IOException {
         super(true);
         this.pointIsDragged = false;
         this.controladorProyectiles = new ControladorProyectil();
@@ -36,6 +37,7 @@ public class Asili extends GameCanvas {
         this.midlet = midlet;
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
+        this.balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
         g = this.getGraphics();
 
         try {
@@ -79,7 +81,7 @@ public class Asili extends GameCanvas {
 
     public void disparar() throws IOException{
         if(this.contadorBalas < this.LIMITE_PROYECTILES) {
-            this.controladorProyectiles.add(new BalaAvatarNivel1(this.avatar.getRefPixelX(), this.avatar.getY()));
+            this.controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getRefPixelX(), this.avatar.getY(), this.balaAvatarUno));
             System.out.println(this.controladorProyectiles);
         }
     }
