@@ -34,39 +34,42 @@ public class ControladorProyectil {
         this.contenedor.addElement(proyectil);
     }
 
-    public void BorrarProyectil() {
-        
+    public void BorrarProyectil(Proyectil proyectil) {
+        this.contenedor.removeElement(proyectil);
     }
 
+    public void ResetEnumerador(){
+        this.enumerador = this.contenedor.elements();
     }
 
-
-
+    
     /******************************************
      * Aqui terminan los metodos que hacen a ControladorProyectil un pseudo ArrayList
      *
      * Estos son los métodos para dibujar y actualizar
      * ***************************************
      */
-    public void actualizar() {
-        if (!this.isEmpty()) {
-            this.contador = 0;
-            for (this.contador = 0; this.contador < this.numeroDeObjetos; this.contador++) {
-                this.proyectiles[this.contador].actualizar();
-                if (this.proyectiles[this.contador].fueraDeLimites == true || this.proyectiles[this.contador].impacto == true) {
-                    this.remove(this.contador);
-                }
-
-            }
-        }
-    }
 
     public void dibujar(Graphics g) {
-        if (!this.isEmpty()) {
-            this.contador = 0;
-            for (this.contador = 0; this.contador < this.numeroDeObjetos; this.contador++) {
-                this.proyectiles[this.contador].dibujar(g);
+        for(int i = 0; i < this.contenedor.size() - 1; i++) {
+            Proyectil temporal = (Proyectil) this.contenedor.elementAt(i);
+            temporal.dibujar(g);
+        }
+    }
+
+    public void actualizar() {
+        for(int i = 0; i < this.contenedor.size() - 1; i++) {
+            Proyectil temporal = (Proyectil) this.contenedor.elementAt(i);
+            temporal.actualizar();
+            if(temporal.impacto || temporal.fueraDeLimites) {
+                this.contenedor.removeElementAt(i);
             }
         }
     }
+
+
+
+}
+
+
 

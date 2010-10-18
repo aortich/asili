@@ -19,8 +19,8 @@ public class Proyectil extends Sprite {
     int velocidadHorizontal;
     int velocidadVertical;
 
-    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, String archivo) throws IOException {
-        super(Image.createImage(archivo), ancho, alto);
+    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, Image imagen) throws IOException {
+        super(imagen, ancho, alto);
         this.velocidadHorizontal = velocidadH;
         this.impacto = false; this.fueraDeLimites = false;
         this.velocidadVertical = velocidadV;
