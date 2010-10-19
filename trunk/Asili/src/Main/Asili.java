@@ -1,4 +1,12 @@
+package Main;
 
+
+import Objetos.Avatar;
+import Objetos.BalaAvatarNivel1;
+import Objetos.ControladorProyectil;
+import Objetos.Enemigo;
+import Objetos.Fondo;
+import Objetos.Proyectil;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;

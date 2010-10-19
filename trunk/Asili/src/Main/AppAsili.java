@@ -1,10 +1,10 @@
+package Main;
 
 
-import java.io.IOException;
-import javax.microedition.lcdui.Alert;
+
+import Menus.MenuPrincipal;
+import Menus.SplashScreenTEC;
 import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.*;
 
 /**

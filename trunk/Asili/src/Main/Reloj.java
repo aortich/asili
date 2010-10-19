@@ -1,3 +1,5 @@
+package Main;
+
 public class Reloj
 {
     private int tiempo;
