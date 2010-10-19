@@ -1,3 +1,5 @@
+package Objetos;
+
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -14,19 +16,9 @@ import javax.microedition.lcdui.Graphics;
 public class ControladorProyectil {
 
     private Vector contenedor;
-    private int tamano;
-    private int factorCrecimiento;
-    private int contador;
-    private int numeroDeObjetos;
-    private Enumeration enumerador;
 
     public ControladorProyectil() {
         this.contenedor = new Vector();
-        this.tamano = 1;
-        this.factorCrecimiento = 50;
-        this.numeroDeObjetos = 0;
-        this.contador = 0;
-        this.enumerador = this.contenedor.elements();
     }
 
 
@@ -37,11 +29,6 @@ public class ControladorProyectil {
     public void BorrarProyectil(Proyectil proyectil) {
         this.contenedor.removeElement(proyectil);
     }
-
-    public void ResetEnumerador(){
-        this.enumerador = this.contenedor.elements();
-    }
-
     
     /******************************************
      * Aqui terminan los metodos que hacen a ControladorProyectil un pseudo ArrayList

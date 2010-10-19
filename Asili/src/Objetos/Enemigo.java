@@ -1,3 +1,5 @@
+package Objetos;
+
 
 import java.io.IOException;
 import javax.microedition.lcdui.Image;
