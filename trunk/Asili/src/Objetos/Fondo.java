@@ -36,7 +36,7 @@ public class Fondo {
         if ( this.y>=(imagen.getHeight() - Asili.ALTO)) { // Si ya se salió completamente la imagen
             //System.out.println(y);
             y=(-imagen.getHeight() - Asili.ALTO);
-            //System.out.println(y);// Repetir
+            //System.out.println(y);
         }
     }
 }
