@@ -3,6 +3,8 @@ package Main;
 
 import Menus.MenuPrincipal;
 import Menus.SplashScreenTEC;
+import Menus.TramaCanvas;
+import Objetos.Enemigo;
 
 
 /***********************************************************************
@@ -19,6 +21,8 @@ public class Animador implements Runnable {
     private Asili asili;
     private MenuPrincipal menu;
     private SplashScreenTEC splash;
+    private TramaCanvas trama;
+    private Enemigo enemigo;
     private boolean corriendo;
     private Thread thread;
     private static final int FPS = 50;
@@ -30,6 +34,8 @@ public class Animador implements Runnable {
         this.splash = null;
         this.asili = juego;
         this.caso = 1;
+        this.trama = null;
+        this.enemigo = null;
     }
 
     public Animador(MenuPrincipal menu) {
@@ -37,6 +43,8 @@ public class Animador implements Runnable {
         this.splash = null;
         this.asili = null;
         this.caso = 2;
+        this.trama = null;
+        this.enemigo = null;
     }
 
     public Animador(SplashScreenTEC splash) {
@@ -44,6 +52,24 @@ public class Animador implements Runnable {
         this.splash = splash;
         this.asili = null;
         this.caso = 3;
+        this.trama = null;
+        this.enemigo = null;
+    }
+    public Animador(TramaCanvas trama) {
+        this.menu = null;
+        this.splash = null;
+        this.asili = null;
+        this.caso = 4;
+        this.trama = trama;
+        this.enemigo = null;
+    }
+    public Animador(Enemigo enemigo) {
+        this.menu = null;
+        this.splash = null;
+        this.asili = null;
+        this.caso = 4;
+        this.trama = null;
+        this.enemigo = enemigo;
     }
 
     public void iniciar() {
@@ -74,6 +100,9 @@ public class Animador implements Runnable {
             }
         }
     }
+    public void detener(){
+        corriendo = false;
+    }
 
     public void actualizar() {
         switch (this.caso) {
@@ -87,6 +116,9 @@ public class Animador implements Runnable {
 
             case 3:
                 splash.actualizar();
+                
+            case 4:
+                trama.actualizar();
 
             default:
                 break;
@@ -106,6 +138,10 @@ public class Animador implements Runnable {
 
             case 3:
                 splash.dibujar();
+                break;
+
+            case 4:
+                trama.dibujar();
                 break;
 
             default:

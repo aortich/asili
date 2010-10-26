@@ -24,8 +24,8 @@ public class Fondo {
 
         g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
 
-        if( y > (imagen.getHeight() - Asili.ALTO)) {
-            g.drawImage(imagen, x, y, Graphics.LEFT|Graphics.TOP);
+        if( y > (0)) {
+            g.drawImage(imagen, x, y = imagen.getHeight(), Graphics.LEFT|Graphics.TOP);
         }
 
     }
@@ -33,9 +33,9 @@ public class Fondo {
         public void actualizar() {
 
         this.y = this.y + scrollSpeed;
-        if ( this.y>=(imagen.getHeight() - Asili.ALTO)) { // Si ya se salió completamente la imagen
+        if ( this.y>=(0)) { // Si ya se salió completamente la imagen
             //System.out.println(y);
-            y=(-imagen.getHeight() - Asili.ALTO);
+            y=(-imagen.getHeight() + Asili.ALTO);
             //System.out.println(y);
         }
     }

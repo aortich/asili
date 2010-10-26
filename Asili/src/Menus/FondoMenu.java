@@ -17,8 +17,8 @@ public class FondoMenu {
 
     private Image imagen;
 
-    public FondoMenu() throws IOException {
-        imagen = Image.createImage("/imagenes/menuPrincipal.jpg");
+    public FondoMenu(String archivo) throws IOException {
+        imagen = Image.createImage(archivo);
     }
 
     public void dibujar(Graphics g) {
