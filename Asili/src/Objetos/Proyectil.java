@@ -22,7 +22,7 @@ public class Proyectil extends Sprite {
     int velocidadHorizontal;
     int velocidadVertical;
 
-    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, Image imagen) throws IOException {
+    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, Image imagen) {
         super(imagen, ancho, alto);
         this.velocidadHorizontal = velocidadH;
         this.impacto = false; this.fueraDeLimites = false;
@@ -39,9 +39,15 @@ public class Proyectil extends Sprite {
 
     public void actualizar() {
         super.move(this.velocidadHorizontal, this.velocidadVertical);
-        if ((this.getY() + this.getHeight()) > Asili.ALTO || this.getY() - this.getHeight() < Asili.ALTO
-                || this.getX() + this.getWidth() > Asili.ANCHO || this.getX() - this.getWidth() < Asili.ANCHO ) {
-            fueraDeLimites = true;
-        }
+        this.detectarLimites();
+    }
+    
+    public void detectarColision(boolean colision) {
+        this.impacto = colision;
+    }
+
+    public void detectarLimites(){
+        if(this.getX() > Asili.ANCHO || this.getX() < 0 || this.getY() > Asili.ALTO || this.getY() < 0)
+            this.fueraDeLimites = true;
     }
 }

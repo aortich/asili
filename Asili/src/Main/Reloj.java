@@ -22,5 +22,9 @@ public class Reloj
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;
     }
+
+    public void resetReloj() {
+        this.tiempo = 0;
+    }
 }
 

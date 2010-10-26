@@ -4,6 +4,7 @@ package Main;
 
 import Menus.MenuPrincipal;
 import Menus.SplashScreenTEC;
+import java.io.IOException;
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.*;
 
@@ -21,7 +22,11 @@ public class AppAsili extends MIDlet {
 
         display = Display.getDisplay(this);
         menuPrincipal= new MenuPrincipal (this);
-        asili = new Asili (this);
+        try {
+            asili = new Asili(this);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         splash= new SplashScreenTEC(this);
         
        

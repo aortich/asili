@@ -3,10 +3,10 @@ package Main;
 
 import Objetos.Avatar;
 import Objetos.BalaAvatarNivel1;
+import Objetos.ControladorEnemigos;
 import Objetos.ControladorProyectil;
 import Objetos.Enemigo;
 import Objetos.Fondo;
-import Objetos.Proyectil;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -19,12 +19,14 @@ import javax.microedition.lcdui.game.GameCanvas;
 public class Asili extends GameCanvas {
 
     private Fondo fondo;
+    private boolean disparoDesbloqueado;
+    public static final int FIRE_RATE = 250;
+    private ControladorEnemigos controladorEnemigos;
     public Image balaAvatarUno;
     private static final int LIMITE_PROYECTILES = 30;
     private int contadorBalas;
     private ControladorProyectil controladorProyectiles;
     private Avatar avatar;
-    private Proyectil proyectil;
     private Enemigo enemigo;
     private boolean pausado = false;
     private Fondo fondoPausa;
@@ -34,18 +36,22 @@ public class Asili extends GameCanvas {
     private Graphics g;
     private AppAsili midlet;
     private boolean pointIsDragged, disparando;
+    private Reloj reloj;
 
 
     public Asili(AppAsili midlet) throws IOException {
         super(true);
         this.pointIsDragged = false;
         this.controladorProyectiles = new ControladorProyectil();
+        this.controladorEnemigos = new ControladorEnemigos();
         this.disparando = true;
+        this.disparoDesbloqueado = true;
         this.setFullScreenMode(true);
         this.midlet = midlet;
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
         this.balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
+        this.reloj = new Reloj(0);
         g = this.getGraphics();
 
         try {
@@ -69,34 +75,31 @@ public class Asili extends GameCanvas {
         if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
             this.pointIsDragged = true;
-            try {
-                this.disparar();
-            } catch (IOException ex) {
-                    ex.printStackTrace();
-            }
         } else {
             this.pointIsDragged = false;
         }
     }
 
     protected void pointerDragged(int aX, int aY) {
-        if (this.pointIsDragged == true) { //Si el puntero esta en el mismo punto que la nave //Empieza a disparar
+        if (this.pointIsDragged) { //Si el puntero esta en el mismo punto que la nave
             avatar.setINCX(aX - avatar.getWidth()/2);
             avatar.setINCY(aY - avatar.getHeight()/2);
         }
 
     }
 
-    public void disparar() throws IOException{
-        if(this.contadorBalas < this.LIMITE_PROYECTILES) {
-            this.controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getRefPixelX(), this.avatar.getY(), this.balaAvatarUno));
-            System.out.println(this.controladorProyectiles);
+    public void disparar() {
+        if(this.disparoDesbloqueado) {
+            this.controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getX() + (avatar.getWidth()/2), this.avatar.getY(), this.balaAvatarUno));
+            System.out.println(this.avatar.getX() + "");
+            this.disparoDesbloqueado = false;
+            this.reloj.resetReloj();
         }
+            
     }
 
     protected void pointerReleased(int x, int y) {
         this.pointIsDragged = false; //Deja de disparar
-        this.disparando = false;
     }
 
     public boolean getPointIsDragged() {
@@ -107,6 +110,11 @@ public class Asili extends GameCanvas {
         avatar.mover();
         fondo.actualizar();
         this.controladorProyectiles.actualizar();
+        this.reloj.incrementar(this.animador.RETARDO);
+        if(this.pointIsDragged)
+            this.disparar();
+        if(this.reloj.getTiempo() >= this.FIRE_RATE)
+            this.disparoDesbloqueado = true;
 
     }
 
@@ -116,4 +124,5 @@ public class Asili extends GameCanvas {
         this.controladorProyectiles.dibujar(g);
         flushGraphics();
     }
+
 }
