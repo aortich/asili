@@ -39,7 +39,7 @@ public class MenuPrincipal extends GameCanvas {
             spriteInstrucciones = new SpriteInstrucciones(0,3);
             spriteHighscores = new SpriteHighscores (0,3);
             spriteCreditos = new SpriteCreditos (0,3);
-            fondo = new FondoMenu();
+            fondo = new FondoMenu("/imagenes/menuPrincipal.jpg");
         } catch (IOException ex) {
             System.out.println("Error de IO");
             ex.printStackTrace();
@@ -62,6 +62,7 @@ public class MenuPrincipal extends GameCanvas {
                 && aY >= spriteTrama.getY() && aY <= (spriteTrama.getY() + spriteTrama.getHeight())) {
             //Aquí debe de ir la acción a tomar cuando se pique la opción de trama
             System.out.println("Trama");
+            midlet.actualizarApp(2);
         }
         //Caja de la opción instrucciones
         if (aX >= (spriteInstrucciones.getX()) && aX <= (spriteInstrucciones.getX() + spriteInstrucciones.getWidth())
