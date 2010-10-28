@@ -7,42 +7,42 @@ import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class TramaCanvas extends GameCanvas {
+public class InstruccionesCanvas extends GameCanvas {
 
     private AppAsili midlet;
     private Graphics g;
     private FondoMenu fondo;
     private Animador animador;
 
-    
 
-    public TramaCanvas(AppAsili midlet) {
+
+    public InstruccionesCanvas(AppAsili midlet) {
         super(true);
 
         this.midlet = midlet;
         this.setFullScreenMode(true);
         g = this.getGraphics();
         try {
-            fondo = new FondoMenu("/imagenes/trama.jpg");
+            fondo = new FondoMenu("/imagenes/instrucciones.jpg");
         } catch (IOException ex) {
-            System.out.println("Error de IO en clase TramaCanvas");
+            System.out.println("Error de IO en clase InstruccionesCanvas");
             ex.printStackTrace();
         }
 
 
         animador = new Animador(this);
         animador.iniciar();
-        
-        
+
+
 
 
     }
-   
+
 
     protected void pointerPressed(int aX, int aY) {
        midlet.actualizarApp(0);
        animador.detener();
-        
+
     }
 
     public void dibujar(){
@@ -53,6 +53,6 @@ public class TramaCanvas extends GameCanvas {
     //probable animación
     public void actualizar(){
 
-       
+
     }
 }
