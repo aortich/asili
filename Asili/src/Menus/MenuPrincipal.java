@@ -1,7 +1,6 @@
 package Menus;
 
 
-import Menus.FondoMenu;
 import Main.Animador;
 import Main.AppAsili;
 import java.io.IOException;
@@ -61,25 +60,24 @@ public class MenuPrincipal extends GameCanvas {
         if (aX >= (spriteTrama.getX()) && aX <= (spriteTrama.getX() + spriteTrama.getWidth())
                 && aY >= spriteTrama.getY() && aY <= (spriteTrama.getY() + spriteTrama.getHeight())) {
             //Aquí debe de ir la acción a tomar cuando se pique la opción de trama
-            System.out.println("Trama");
             midlet.actualizarApp(2);
         }
         //Caja de la opción instrucciones
         if (aX >= (spriteInstrucciones.getX()) && aX <= (spriteInstrucciones.getX() + spriteInstrucciones.getWidth())
                 && aY >= spriteInstrucciones.getY() && aY <= (spriteInstrucciones.getY() + spriteInstrucciones.getHeight())) {
             //Aquí debe de ir la acción a tomar cuando se pique la opción de instrucciones
-            System.out.println("Instrucciones");
+            midlet.actualizarApp(3);
         }
         //Caja de la opción highscores
         if (aX >= (spriteHighscores.getX()) && aX <= (spriteHighscores.getX() + spriteHighscores.getWidth())
                 && aY >= spriteHighscores.getY() && aY <= (spriteHighscores.getY() + spriteHighscores.getHeight())) {
-                System.out.println("HS");
+                midlet.actualizarApp(4);
             //Aquí debe de ir la acción a tomar cuando se pique la opción de Highscores
         }
         //Caja de la opción creditos
         if (aX >= (spriteCreditos.getX()) && aX <= (spriteCreditos.getX() + spriteCreditos.getWidth())
                 && aY >= spriteCreditos.getY() && aY <= (spriteCreditos.getY() + spriteCreditos.getHeight())) {
-            //Aquí debe de ir la acción a tomar cuando se pique la opción de creditos
+            midlet.actualizarApp(5);
             System.out.println("Creditos");
         }
 

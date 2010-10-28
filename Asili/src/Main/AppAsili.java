@@ -2,6 +2,9 @@ package Main;
 
 
 
+import Menus.CreditosCanvas;
+import Menus.HiSCanvas;
+import Menus.InstruccionesCanvas;
 import Menus.MenuPrincipal;
 import Menus.SplashScreenTEC;
 import Menus.TramaCanvas;
@@ -18,6 +21,9 @@ public class AppAsili extends MIDlet {
     private SplashScreenTEC splash;
     private MenuPrincipal menuPrincipal;
     private TramaCanvas tramaCanvas;
+    private InstruccionesCanvas instruccionesCanvas;
+    private HiSCanvas hiScores;
+    private CreditosCanvas creditosCanvas;
     public Display display;
      
     public AppAsili() {
@@ -58,6 +64,9 @@ public class AppAsili extends MIDlet {
 
     public void actualizarApp(int opcion) {
         switch(opcion){
+            case 0:
+                display.setCurrent(menuPrincipal);
+                break;
             case 1:
                 display.setCurrent(asili);
                 break;
@@ -65,7 +74,18 @@ public class AppAsili extends MIDlet {
                 tramaCanvas= new TramaCanvas(this);
                 display.setCurrent(tramaCanvas);
                 break;
-
+            case 3:
+                instruccionesCanvas = new InstruccionesCanvas(this);
+                display.setCurrent (instruccionesCanvas);
+                break;
+            case 4:
+                hiScores = new HiSCanvas(this);
+                display.setCurrent (hiScores);
+                break;
+            case 5:
+                creditosCanvas = new CreditosCanvas (this);
+                display.setCurrent (creditosCanvas);
+            
             default:
                 break;
         }
