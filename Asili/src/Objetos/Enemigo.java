@@ -18,11 +18,11 @@ import javax.microedition.lcdui.game.Sprite;
 public class Enemigo extends Sprite {
 
     boolean destruido;
+    int idleTime;
+    int tiempoActual;
 
-    public Enemigo(int ancho, int alto, String archivo, int [] secuencia) throws IOException {
-        super(Image.createImage(archivo),ancho,alto);
-        super.setFrameSequence(secuencia);
-        super.setFrame(2);
+    public Enemigo(int ancho, int alto, int idleTime, Image imagen) {
+        super(imagen,ancho,alto);
     }
 
     public void dibujar(Graphics g) {

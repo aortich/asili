@@ -18,13 +18,14 @@ import javax.microedition.lcdui.game.Sprite;
 public class Proyectil extends Sprite {
 
     int dano;
-    boolean impacto, fueraDeLimites;
+    boolean impacto, fueraDeLimites, pertenecenAvatar;
     int velocidadHorizontal;
     int velocidadVertical;
 
-    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, Image imagen) {
+    public Proyectil(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, boolean pertenencia, Image imagen) {
         super(imagen, ancho, alto);
         this.velocidadHorizontal = velocidadH;
+        this.pertenecenAvatar = pertenencia;
         this.impacto = false; this.fueraDeLimites = false;
         this.velocidadVertical = velocidadV;
         super.setPosition(x, y);
@@ -40,6 +41,10 @@ public class Proyectil extends Sprite {
     public void actualizar() {
         super.move(this.velocidadHorizontal, this.velocidadVertical);
         this.detectarLimites();
+    }
+
+    public boolean perteneceAAvatar(){
+        return this.pertenecenAvatar;
     }
     
     public void detectarColision(boolean colision) {

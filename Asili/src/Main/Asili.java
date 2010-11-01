@@ -7,15 +7,13 @@ import Objetos.ControladorEnemigos;
 import Objetos.ControladorProyectil;
 import Objetos.Enemigo;
 import Objetos.Fondo;
+import Objetos.Proyectil;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
-/**
- *
- * @author Fer
- */
+
 public class Asili extends GameCanvas {
 
     private Fondo fondo;
@@ -104,6 +102,26 @@ public class Asili extends GameCanvas {
 
     public boolean getPointIsDragged() {
         return this.pointIsDragged;
+    }
+
+    public void detectarColision() {
+        for(int i = 0; i < this.controladorProyectiles.getSize() - 1; i++) {
+            Proyectil proyectilTemp = this.controladorProyectiles.proyectilAt(i);
+            if(proyectilTemp.perteneceAAvatar()) {
+                for(int j = 0; j < this.controladorEnemigos.getSize() -1; j++){
+                    Enemigo enemigoTemp = this.controladorEnemigos.enemigoAt(j);
+                    if(proyectilTemp.collidesWith(enemigoTemp, true)) {
+                        proyectilTemp.detectarColision(true);
+                        enemigoTemp.destruir(true);
+                    }
+                }
+            } else {
+                if(proyectilTemp.collidesWith(avatar, true)) {
+                    proyectilTemp.detectarColision(true);
+                    //Terminar Juego
+                }
+            }
+        }
     }
 
     public void actualizar() {

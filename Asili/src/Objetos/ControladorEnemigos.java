@@ -26,6 +26,14 @@ public class ControladorEnemigos {
         this.contenedor.addElement(enemigo);
     }
 
+    public int getSize() {
+        return this.contenedor.size();
+    }
+
+    public Enemigo enemigoAt(int index) {
+        return (Enemigo) this.contenedor.elementAt(index);
+    }
+
     public void BorrarProyectil(Enemigo enemigo) {
         this.contenedor.removeElement(enemigo);
     }
@@ -44,16 +52,6 @@ public class ControladorEnemigos {
             temporal.actualizar();
             if(temporal.destruido) {
                 this.contenedor.removeElementAt(i);
-            }
-        }
-    }
-
-    public void detectarColisiones(Sprite sprite) {
-        for(int i = 0; i < this.contenedor.size() - 1; i++) {
-            Enemigo temporal = (Enemigo) this.contenedor.elementAt(i);
-            if(temporal.collidesWith(sprite, false)){
-                temporal.destruir(true);
-
             }
         }
     }
