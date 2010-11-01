@@ -21,6 +21,14 @@ public class ControladorProyectil {
         this.contenedor = new Vector();
     }
 
+    public int getSize(){
+        return this.contenedor.size();
+    }
+
+    public Proyectil proyectilAt(int index){
+        return (Proyectil)this.contenedor.elementAt(index);
+    }
+
 
     public void AgregarProyectil(Proyectil proyectil) {
         this.contenedor.addElement(proyectil);
@@ -48,13 +56,6 @@ public class ControladorProyectil {
         }
     }
 
-    public void detectarColisiones(Sprite sprite) {
-         for(int i = 0; i < this.contenedor.size() - 1; i++) {
-             Proyectil temporal = (Proyectil) this.contenedor.elementAt(i);
-             if(temporal.collidesWith(sprite, false))
-                temporal.detectarColision(true);
-         }
-    }
 
     public String toString() {
         return this.contenedor.size() + "";
