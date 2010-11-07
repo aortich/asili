@@ -37,6 +37,7 @@ public class SplashScreenTEC extends GameCanvas {
 
     public void dibujar() {
         g.drawImage(logoTec, 0, 0, Graphics.LEFT|Graphics.TOP);
+        flushGraphics();
     }
 
     public void actualizar() {

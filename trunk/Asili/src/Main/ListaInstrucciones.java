@@ -38,10 +38,11 @@ public class ListaInstrucciones {
         switch (nivel) {
 
             case 1:
-                lista.addElement(new Instruccion("Enemigo", 2000, 2000));
-                lista.addElement(new Instruccion("Enemigo", 2500, 2000));
-                lista.addElement(new Instruccion("Enemigo", 3000, 1500));
-                lista.addElement(new Instruccion("Enemigo", 3500, 1500));
+                lista.addElement(new Instruccion(1, 2000, 2000));
+                lista.addElement(new Instruccion(1, 2500, 2000));
+                lista.addElement(new Instruccion(1, 3000, 1500));
+                lista.addElement(new Instruccion(1, 3500, 1500));
+                lista.addElement(new Instruccion(1, 4000, 1500));
         }
     }
 }

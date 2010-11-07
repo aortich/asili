@@ -22,7 +22,7 @@ public class ControladorEnemigos {
     }
 
 
-    public void AgregarEnemigo(Enemigo enemigo) {
+    public void agregarEnemigo(Enemigo enemigo) {
         this.contenedor.addElement(enemigo);
     }
 

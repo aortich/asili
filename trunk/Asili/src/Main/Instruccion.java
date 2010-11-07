@@ -11,11 +11,11 @@ package Main;
  */
 public class Instruccion {
 
-    public String tipoEnemigo;
+    public int tipoEnemigo;
     public int tiempoAparicion;
     public int idleTime;
 
-    public Instruccion(String enemigo, int aparicion, int idle){
+    public Instruccion(int enemigo, int aparicion, int idle){
         this.tipoEnemigo = enemigo;
         this.tiempoAparicion = aparicion;
         this.idleTime = idle;
@@ -25,7 +25,7 @@ public class Instruccion {
         return this.tiempoAparicion;
     }
 
-    String getTipoEnemigo() {
+    int getTipoEnemigo() {
       return this.tipoEnemigo;
     }
 

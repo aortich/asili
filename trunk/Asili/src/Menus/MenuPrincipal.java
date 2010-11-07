@@ -91,6 +91,8 @@ public class MenuPrincipal extends GameCanvas {
         spriteHighscores.dibujar(g);
         spriteCreditos.dibujar(g);
 
+        flushGraphics();
+
     }
 
     public void actualizar(){
