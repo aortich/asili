@@ -6,6 +6,7 @@ import Objetos.BalaAvatarNivel1;
 import Objetos.ControladorEnemigos;
 import Objetos.ControladorProyectil;
 import Objetos.Enemigo;
+import Objetos.EnemigoUno;
 import Objetos.Fondo;
 import Objetos.Proyectil;
 import java.io.IOException;
@@ -20,11 +21,12 @@ public class Asili extends GameCanvas {
     private boolean disparoDesbloqueado;
     public static final int FIRE_RATE = 250;
     private ControladorEnemigos controladorEnemigos;
-    public Image balaAvatarUno;
-    private static final int LIMITE_PROYECTILES = 30;
-    private int contadorBalas;
-    private ControladorProyectil controladorProyectiles;
+    public Image balaAvatarUno, enemigoUno;
+   // private static final int LIMITE_PROYECTILES = 30;
+   //private int contadorBalas;
+    public static ControladorProyectil controladorProyectiles;
     private Avatar avatar;
+    private Spawner spawner;
     private Enemigo enemigo;
     private boolean pausado = false;
     private Fondo fondoPausa;
@@ -40,6 +42,7 @@ public class Asili extends GameCanvas {
     public Asili(AppAsili midlet) throws IOException {
         super(true);
         this.pointIsDragged = false;
+        this.spawner = new Spawner(1);
         this.controladorProyectiles = new ControladorProyectil();
         this.controladorEnemigos = new ControladorEnemigos();
         this.disparando = true;
@@ -49,6 +52,7 @@ public class Asili extends GameCanvas {
         this.ANCHO = this.getWidth();
         this.ALTO = this.getHeight();
         this.balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
+        this.enemigoUno = Image.createImage("/imagenes/enemigoSprite1.png");
         this.reloj = new Reloj(0);
         g = this.getGraphics();
 
@@ -104,6 +108,19 @@ public class Asili extends GameCanvas {
         return this.pointIsDragged;
     }
 
+    public void invocarEnemigo() {
+        if(spawner.isTime()) {
+            switch(spawner.getInstruccionActual().tipoEnemigo) {
+                case 1:
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, this.enemigoUno ));
+                    break;
+                 default:
+                     break;
+            }
+            spawner.siguienteInstruccion();
+        }
+    }
+
     public void detectarColision() {
         for(int i = 0; i < this.controladorProyectiles.getSize() - 1; i++) {
             Proyectil proyectilTemp = this.controladorProyectiles.proyectilAt(i);
@@ -125,8 +142,13 @@ public class Asili extends GameCanvas {
     }
 
     public void actualizar() {
+        System.out.println(controladorEnemigos);
+        controladorEnemigos.actualizar();
         avatar.mover();
+        spawner.actualizar(Animador.RETARDO);
         fondo.actualizar();
+        this.detectarColision();
+        this.invocarEnemigo();
         this.controladorProyectiles.actualizar();
         this.reloj.incrementar(this.animador.RETARDO);
         if(this.pointIsDragged)
@@ -140,6 +162,7 @@ public class Asili extends GameCanvas {
         fondo.dibujar(g);
         avatar.dibujar(g);
         this.controladorProyectiles.dibujar(g);
+        this.controladorEnemigos.dibujar(g);
         flushGraphics();
     }
 

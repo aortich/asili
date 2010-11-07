@@ -23,6 +23,9 @@ public class Enemigo extends Sprite {
 
     public Enemigo(int ancho, int alto, int idleTime, Image imagen) {
         super(imagen,ancho,alto);
+        this.destruido = false;
+        this.idleTime = idleTime;
+        this.tiempoActual = 0;
     }
 
     public void dibujar(Graphics g) {
@@ -30,11 +33,12 @@ public class Enemigo extends Sprite {
     }
 
     public void actualizar() {
-        super.move(1, 1);
+        move(3, -3);
     }
 
     public void destruir(boolean destruido) {
-       this.destruido = destruido;
+       System.out.println(this.destruido);
+        this.destruido = destruido;
     }
 
     

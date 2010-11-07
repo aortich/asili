@@ -19,8 +19,8 @@ public class EnemigoUno extends Enemigo {
 
     }
 
-    public void actualizar(int time) {
-
+    public void actualizar() {
+        super.move(1, 2);
     }
 
     public void apuntar(int avatarX, int avatarY) {

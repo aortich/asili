@@ -40,14 +40,14 @@ public class InstruccionesCanvas extends GameCanvas {
 
 
     protected void pointerPressed(int aX, int aY) {
-       midlet.actualizarApp(0);
+       midlet.actualizarApp(6);
        animador.detener();
 
     }
 
     public void dibujar(){
         fondo.dibujar(g);
-        this.flushGraphics();
+        flushGraphics();
 
     }
     //probable animación

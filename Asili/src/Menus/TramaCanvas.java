@@ -40,7 +40,7 @@ public class TramaCanvas extends GameCanvas {
    
 
     protected void pointerPressed(int aX, int aY) {
-       midlet.actualizarApp(0);
+       midlet.actualizarApp(6);
        animador.detener();
         
     }

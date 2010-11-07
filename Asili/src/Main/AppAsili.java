@@ -30,22 +30,12 @@ public class AppAsili extends MIDlet {
 
         display = Display.getDisplay(this);
         menuPrincipal= new MenuPrincipal (this);
-
-        
-        //crear el juego solo cuando se va a usar
-        try {
-            asili = new Asili(this);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            asili = new Asili(this);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
         splash= new SplashScreenTEC(this);
+        asili = null;
+        tramaCanvas = null;
+        instruccionesCanvas = null;
+        hiScores = null;
+        creditosCanvas = null;
         
        
     }
@@ -64,28 +54,82 @@ public class AppAsili extends MIDlet {
 
     public void actualizarApp(int opcion) {
         switch(opcion){
-            case 0:
-                display.setCurrent(menuPrincipal);
-                break;
             case 1:
+                 try {
+                    asili = new Asili(this);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 display.setCurrent(asili);
+
+                splash = null;
+                tramaCanvas = null;
+                menuPrincipal = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+                creditosCanvas = null;
+                
                 break;
             case 2:
                 tramaCanvas= new TramaCanvas(this);
                 display.setCurrent(tramaCanvas);
+
+                asili = null;
+                splash = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+                menuPrincipal = null;
+                creditosCanvas = null;
+
                 break;
             case 3:
                 instruccionesCanvas = new InstruccionesCanvas(this);
                 display.setCurrent (instruccionesCanvas);
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                hiScores = null;
+                menuPrincipal = null;
+                creditosCanvas = null;
+
                 break;
             case 4:
                 hiScores = new HiSCanvas(this);
                 display.setCurrent (hiScores);
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                instruccionesCanvas = null;
+                menuPrincipal = null;
+                creditosCanvas = null;
+
                 break;
             case 5:
                 creditosCanvas = new CreditosCanvas (this);
                 display.setCurrent (creditosCanvas);
-            
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                menuPrincipal = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+
+                break;
+            case 6:
+                menuPrincipal = new MenuPrincipal(this);
+                display.setCurrent(menuPrincipal);
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+                creditosCanvas = null;
+
+                break;
             default:
                 break;
         }
