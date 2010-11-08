@@ -10,14 +10,9 @@ import Menus.TramaCanvas;
 import Objetos.Enemigo;
 
 
-/***********************************************************************
- ***********************************************************************
- * IMPORTANTE:
- * Preguntar todo referente a Threads.
- *
- *
- * *********************************************************************
- * ********************************************************************
+ /**
+ * Se encarga de llamar a los métodos actualizar y dibujar constantemente.
+ * @author Alberto, Fernando
  */
 public class Animador implements Runnable {
 
@@ -32,9 +27,16 @@ public class Animador implements Runnable {
     private boolean corriendo;
     private Thread thread;
     private static final int FPS = 50;
+    /**
+     *  Cuadros por segundo
+     */
     public static final int RETARDO = 1000 / FPS;
     int caso;
 
+    /**
+     *
+     * @param juego - El juego Asili enviado como parámetro
+     */
     public Animador(Asili juego) {
         this.menu = null;
         this.splash = null;
@@ -47,6 +49,10 @@ public class Animador implements Runnable {
         this.creditos = null;
     }
 
+    /**
+     *
+     * @param menu - La clase menu principal del juego
+     */
     public Animador(MenuPrincipal menu) {
         this.menu = menu;
         this.splash = null;
@@ -59,6 +65,10 @@ public class Animador implements Runnable {
         this.creditos = null;
     }
 
+    /**
+     *
+     * @param splash - La clase SplashScreen
+     */
     public Animador(SplashScreenTEC splash) {
         this.menu = null;
         this.splash = splash;
@@ -70,6 +80,10 @@ public class Animador implements Runnable {
         this.hScores = null;
         this.creditos = null;
     }
+    /**
+     *
+     * @param trama - La clase MenuTrama, que contiene la trama del texto
+     */
     public Animador(TramaCanvas trama) {
         this.menu = null;
         this.splash = null;
@@ -81,18 +95,11 @@ public class Animador implements Runnable {
         this.hScores = null;
         this.creditos = null;
     }
-    public Animador(Enemigo enemigo) {
-        this.menu = null;
-        this.splash = null;
-        this.asili = null;
-        this.caso = 4;
-        this.trama = null;
-        this.enemigo = enemigo;
-        this.instrucciones = null;
-        this.hScores = null;
-        this.creditos = null;
-    }
 
+    /**
+     *
+     * @param instrucciones - La clase InstruccionesCanvas que contiene las instrucciones para jugar
+     */
     public Animador(InstruccionesCanvas instrucciones) {
         this.menu = null;
         this.splash = null;
@@ -105,6 +112,10 @@ public class Animador implements Runnable {
         this.creditos = null;
     }
 
+    /**
+     *
+     * @param hScores - La clase HiSCanvas que contiene los highscores
+     */
     public Animador(HiSCanvas hScores) {
         this.menu = null;
         this.splash = null;
@@ -117,6 +128,10 @@ public class Animador implements Runnable {
         this.creditos = null;
     }
 
+    /**
+     *
+     * @param creditos - La clase CreditosCanvas que contiene los créditos del juego
+     */
     public Animador(CreditosCanvas creditos) {
         this.menu = null;
         this.splash = null;
@@ -130,12 +145,18 @@ public class Animador implements Runnable {
 
     }
 
+    /**
+     * Crea un hilo, y llama al método run.
+     */
     public void iniciar() {
 
         thread = new Thread(this);
         thread.start();     // Llama al método run()
     }
 
+    /**
+     * Corre el juego, calcula el retardo y llama constantemente a su método actualizar y dibujar.
+     */
     public void run() {
 
         corriendo = true;
@@ -158,10 +179,16 @@ public class Animador implements Runnable {
             }
         }
     }
+    /**
+     * Detiene el juego
+     */
     public void detener(){
         corriendo = false;
     }
 
+    /**
+     * Llama al método actualizar, de la clase que se envió com parámetro
+     */
     public void actualizar() {
         switch (this.caso) {
             case 1:
@@ -195,6 +222,9 @@ public class Animador implements Runnable {
 
     }
 
+    /**
+     * Llama al método dibujar de la clase que se envió como parámetro
+     */
     public void dibujar() {
         switch (this.caso) {
             case 1:
@@ -229,6 +259,9 @@ public class Animador implements Runnable {
 
     }
 
+    /**
+     * Termina el juego.
+     */
     public void terminar() {
         corriendo = false;
 

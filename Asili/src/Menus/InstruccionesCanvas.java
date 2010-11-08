@@ -7,6 +7,10 @@ import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
+/**
+ * El canvas que contiene las instrucciones
+ * @author Alberto Ortiz
+ */
 public class InstruccionesCanvas extends GameCanvas {
 
     private AppAsili midlet;
@@ -16,6 +20,10 @@ public class InstruccionesCanvas extends GameCanvas {
 
 
 
+    /**
+     * El método constructor
+     * @param midlet - El midlet que controla el display actual
+     */
     public InstruccionesCanvas(AppAsili midlet) {
         super(true);
 
@@ -39,18 +47,28 @@ public class InstruccionesCanvas extends GameCanvas {
     }
 
 
+    /**
+     *
+     * @param aX - La coordenada X del stylus
+     * @param aY - La coordenada Y del stylus
+     */
     protected void pointerPressed(int aX, int aY) {
        midlet.actualizarApp(6);
        animador.detener();
 
     }
 
+    /**
+     * EL método que dibuja el Canvas
+     */
     public void dibujar(){
         fondo.dibujar(g);
         flushGraphics();
 
     }
-    //probable animación
+    /**
+     * El método que actualiza el Canvas
+     */
     public void actualizar(){
 
 

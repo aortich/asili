@@ -1,11 +1,15 @@
 package Main;
 
 
+import Menus.SpriteBotonContinuar;
+import Menus.SpriteBotonPausa;
+import Menus.SpriteBotonSalir;
 import Objetos.Avatar;
 import Objetos.BalaAvatarNivel1;
 import Objetos.ControladorEnemigos;
 import Objetos.ControladorProyectil;
 import Objetos.Enemigo;
+import Objetos.EnemigoDos;
 import Objetos.EnemigoUno;
 import Objetos.Fondo;
 import Objetos.Proyectil;
@@ -15,44 +19,108 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
 
+/**
+ * Clase con la lógica principal, se encarga de manejar las colisiones, de mover al avatar, y de disparar, entre otras cosas.
+ * @author Alberto Ortiz
+ */
 public class Asili extends GameCanvas {
 
     private Fondo fondo;
+    /**
+     * El nivel actual del juego
+     */
+    public int nivel;
     private boolean disparoDesbloqueado;
+    /**
+     * El tiempo que debe de esperar el avatar antes de volver a disparar.
+     */
     public static final int FIRE_RATE = 250;
     private ControladorEnemigos controladorEnemigos;
-    public Image balaAvatarUno, enemigoUno;
+    private SpriteBotonContinuar spriteBotonContinuar;
+    private SpriteBotonPausa spriteBotonPausa;
+    private SpriteBotonSalir spriteBotonSalir;
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    /**
+     * Imagen precargada
+     */
+    public static Image balaAvatarUno, enemigoUno, enemigoDos, bala1, bala2
+    , botonPausa, botonContinuar, botonSalir, fondoPausa;
    // private static final int LIMITE_PROYECTILES = 30;
    //private int contadorBalas;
+    /**
+     * El encargado de administrar, actualizar y dibujar cada proyectil.
+     */
     public static ControladorProyectil controladorProyectiles;
     private Avatar avatar;
     private Spawner spawner;
     private Enemigo enemigo;
-    private boolean pausado = false;
-    private Fondo fondoPausa;
+    /**
+     * El ANCHO actual de la aplicación.
+     */
     public static int ANCHO;        // Ancho y alto de la pantalla del celular
+    /**
+     * El ALTO actual de la aplicación
+     */
     public static int ALTO;
     private Animador animador;  // Estará avisando a cada rato que se actualice y dibuje queda pendiente la clase
     private Graphics g;
     private AppAsili midlet;
-    private boolean pointIsDragged, disparando;
+    private boolean pointIsDragged, pausado;
     private Reloj reloj;
 
 
+    /**
+     *
+     * @param EL midlet para que corra en un celular.
+     * @throws IOException - Excepción arrojada si no se puede cargar alguna imagen
+     */
     public Asili(AppAsili midlet) throws IOException {
         super(true);
         this.pointIsDragged = false;
         this.spawner = new Spawner(1);
-        this.controladorProyectiles = new ControladorProyectil();
+        controladorProyectiles = new ControladorProyectil();
         this.controladorEnemigos = new ControladorEnemigos();
-        this.disparando = true;
+        this.pausado = false;
         this.disparoDesbloqueado = true;
         this.setFullScreenMode(true);
         this.midlet = midlet;
-        this.ANCHO = this.getWidth();
-        this.ALTO = this.getHeight();
-        this.balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
-        this.enemigoUno = Image.createImage("/imagenes/enemigoSprite1.png");
+        ANCHO = this.getWidth();
+        ALTO = this.getHeight();
+        balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
+        enemigoUno = Image.createImage("/imagenes/enemigoSprite1.png");
+        enemigoDos = Image.createImage("/imagenes/enemigoSprite2.png");
+        bala1 = Image.createImage("/imagenes/Spritebala2.png");
+        bala2 = Image.createImage("/imagenes/Spritebala3.png");
+        botonPausa = Image.createImage("/imagenes/pausa.png");
+        botonContinuar = Image.createImage("/imagenes/continuar.png");
+        botonSalir = Image.createImage("/imagenes/salir.png");
+        fondoPausa = Image.createImage("/imagenes/Fondopausa.png");
+        this.spriteBotonContinuar = new SpriteBotonContinuar();
+        this.spriteBotonPausa = new SpriteBotonPausa();
+        this.spriteBotonSalir = new SpriteBotonSalir();
         this.reloj = new Reloj(0);
         g = this.getGraphics();
 
@@ -72,16 +140,27 @@ public class Asili extends GameCanvas {
 
     }
     
+    /**
+     *
+     * @param aX - Coordenada X del stylus
+     * @param aY - Coordenada Y del stylus
+     */
     protected void pointerPressed(int aX, int aY) {
-        System.out.println("( " + aX + ", " + aY + ")");
         if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
                 && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
             this.pointIsDragged = true;
-        } else {
+        } else if(aX >= (spriteBotonPausa.getX()) && aX <= (spriteBotonPausa.getX() + spriteBotonPausa.getWidth())
+                && aY >= spriteBotonPausa.getY() && aY <= (spriteBotonPausa.getY() + spriteBotonPausa.getHeight())) {
             this.pointIsDragged = false;
+            this.pausado = !pausado;
         }
     }
 
+    /**
+     *
+     * @param aX - Coordenada X del stylus
+     * @param aY - Coordenada Y del stylus
+     */
     protected void pointerDragged(int aX, int aY) {
         if (this.pointIsDragged) { //Si el puntero esta en el mismo punto que la nave
             avatar.setINCX(aX - avatar.getWidth()/2);
@@ -90,9 +169,12 @@ public class Asili extends GameCanvas {
 
     }
 
+    /**
+     * Agrega proyectiles del avatar al controladorProyectiles
+     */
     public void disparar() {
         if(this.disparoDesbloqueado) {
-            this.controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getX() + (avatar.getWidth()/2), this.avatar.getY(), this.balaAvatarUno));
+            controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getX() + (avatar.getWidth()/2), this.avatar.getY(), this.balaAvatarUno));
             System.out.println(this.avatar.getX() + "");
             this.disparoDesbloqueado = false;
             this.reloj.resetReloj();
@@ -100,20 +182,34 @@ public class Asili extends GameCanvas {
             
     }
 
+    /**
+     *
+     * @param x - Coordenada x del stylus
+     * @param y - Coordenada y del stylus
+     */
     protected void pointerReleased(int x, int y) {
         this.pointIsDragged = false; //Deja de disparar
     }
 
+    /**
+     *
+     * @return Regresa si el stylus tocó o no al avatar
+     */
     public boolean getPointIsDragged() {
         return this.pointIsDragged;
     }
 
+    /**
+     * Agrega un enemigo al controladorEnemigos, lo que provoca su aparición en pantalla
+     */
     public void invocarEnemigo() {
         if(spawner.isTime()) {
             switch(spawner.getInstruccionActual().tipoEnemigo) {
                 case 1:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, this.enemigoUno ));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, enemigoUno ));
                     break;
+                case 2:
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(100, 100, spawner.getInstruccionActual().idleTime, enemigoDos));
                  default:
                      break;
             }
@@ -121,9 +217,12 @@ public class Asili extends GameCanvas {
         }
     }
 
+    /**
+     * Detecta las colisiones necesarias.
+     */
     public void detectarColision() {
-        for(int i = 0; i < this.controladorProyectiles.getSize() - 1; i++) {
-            Proyectil proyectilTemp = this.controladorProyectiles.proyectilAt(i);
+        for(int i = 0; i < controladorProyectiles.getSize() - 1; i++) {
+            Proyectil proyectilTemp = controladorProyectiles.proyectilAt(i);
             if(proyectilTemp.perteneceAAvatar()) {
                 for(int j = 0; j < this.controladorEnemigos.getSize() -1; j++){
                     Enemigo enemigoTemp = this.controladorEnemigos.enemigoAt(j);
@@ -141,28 +240,47 @@ public class Asili extends GameCanvas {
         }
     }
 
+    /**
+     *
+     * Llama al método actualizar de cada clase
+     */
     public void actualizar() {
-        System.out.println(controladorEnemigos);
-        controladorEnemigos.actualizar();
-        avatar.mover();
-        spawner.actualizar(Animador.RETARDO);
-        fondo.actualizar();
-        this.detectarColision();
-        this.invocarEnemigo();
-        this.controladorProyectiles.actualizar();
-        this.reloj.incrementar(this.animador.RETARDO);
-        if(this.pointIsDragged)
-            this.disparar();
-        if(this.reloj.getTiempo() >= this.FIRE_RATE)
-            this.disparoDesbloqueado = true;
+        if (!pausado) {
+            System.out.println(controladorEnemigos);
+            controladorEnemigos.actualizar(this.avatar.getX());
+            avatar.mover();
+            spawner.actualizar(Animador.RETARDO);
+            fondo.actualizar();
+            this.detectarColision();
+            this.invocarEnemigo();
+            controladorProyectiles.actualizar();
+            this.reloj.incrementar(Animador.RETARDO);
+            if (this.pointIsDragged) {
+                this.disparar();
+            }
+            if (this.reloj.getTiempo() >= FIRE_RATE) {
+                this.disparoDesbloqueado = true;
+            }
+        }
 
     }
 
+    /**
+     * Llama al método dibujar de cada clase
+     */
     public void dibujar() {
+      
         fondo.dibujar(g);
         avatar.dibujar(g);
-        this.controladorProyectiles.dibujar(g);
+        this.spriteBotonPausa.dibujar(g);
+        controladorProyectiles.dibujar(g);
         this.controladorEnemigos.dibujar(g);
+          if(pausado) {
+            spriteBotonContinuar.dibujar(g);
+            spriteBotonSalir.dibujar(g);
+            g.drawImage(fondoPausa, 0, 0, Graphics.LEFT|Graphics.TOP);
+
+        }
         flushGraphics();
     }
 

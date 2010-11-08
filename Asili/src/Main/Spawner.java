@@ -7,7 +7,7 @@ package Main;
 
 
 /**
- *
+ * Da la instrucción actual, y la hora para invocar a los enemigos
  * @author Alberto Ortiz
  */
 public class Spawner {
@@ -19,6 +19,10 @@ public class Spawner {
     private boolean esTiempo;
     private boolean juegoTerminado;
 
+    /**
+     *
+     * @param nivel - El nivel actual, para llenar la lista de acuerdo al nivel
+     */
     public Spawner(int nivel) {
         tiempoActual = 0;
         nivelActual = nivel;
@@ -29,39 +33,69 @@ public class Spawner {
         juegoTerminado = false;
     }
 
+    /**
+     *
+     * @param tiempo EL tiempo que se agrega, en milisegundos
+     */
     public void actualizar(int tiempo) {
         tiempoActual += tiempo;
         if(tiempoActual >= instruccion.getTiempoAparicion() )
             esTiempo = true;
     }
 
+    /**
+     * Regresa el tiempo a cero
+     */
     public void resetTiempo() {
         tiempoActual = 0;
         esTiempo = false;
     }
 
+    /**
+     *
+     * @param nivel Modifica el nivel actual
+     */
     public void setNivel(int nivel) {
         this.nivelActual = nivel;
     }
 
+    /**
+     *
+     * @param newTiempo Cambia el tiempo transcurrido por uno nuevo
+     */
     public void setTiempo(int newTiempo) {
         tiempoActual = newTiempo;
         esTiempo = true;
     }
 
+    /**
+     *
+     * @return - regresa si ya es hora de invocar
+     */
     public boolean isTime(){
         return esTiempo;
     }
 
+    /**
+     *
+     * @return regresa si el juego ya termino
+     */
     public boolean juegoTerminado() {
         return juegoTerminado;
     }
 
+    /**
+     *
+     * @return regresa la instrucción actual
+     */
     public Instruccion getInstruccionActual() {
         return instruccion;
     }
 
 
+    /**
+     * Pasa a la siguiente instrucción. SI la siguiente instrucción es null, el juego termina
+     */
     public void siguienteInstruccion() {
         instruccion = listaInstrucciones.siguienteInstruccion();
         resetTiempo();
