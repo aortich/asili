@@ -17,14 +17,11 @@ import javax.microedition.lcdui.game.Sprite;
  */
 public class Avatar extends Sprite{
 
-    private int anchoPantalla;
-    private int altoPantalla;
     private int INC_X, INC_Y;
     private int contadorPowerUps;
     private boolean escudoActivado;
     private int vidas;
     private int cargaSolar;
-    private Asili asili;
 
 
     /**
@@ -35,7 +32,7 @@ public class Avatar extends Sprite{
      */
     public Avatar(int x, int y) throws IOException {
 
-        super (Image.createImage("/imagenes/avatarSprite.png"),100, 100);
+        super (Asili.avatarSprite,100, 100);
         super.defineReferencePixel(this.getWidth()/2, this.getHeight()/2);
         setPosition(x, y);
         
@@ -137,7 +134,7 @@ public class Avatar extends Sprite{
 
     /**
      * El número de vidas del jugador
-     * @return UN int con el npumero de vidas
+     * @return Un int con el número de vidas
      */
     public int getVidas() {
         return vidas;
@@ -150,12 +147,18 @@ public class Avatar extends Sprite{
     public void setVidas(int vidas) {
         this.vidas = vidas;
     }
-    /*
-    public void disparar() {
-        if(asili.getPointIsDragged() == true) {
-            //Dispara
-        }
-    }*/
+
+    public void destruirAvatar() {
+        this.setImage(Asili.muerte, 100, 100);
+        int [] arreglo = {0, 0, 1, 1, 2, 2};
+        this.setFrameSequence(arreglo);
+        this.vidas--;
+    }
+
+    public void reconstruirAvatar() {
+        this.setImage(Asili.avatarSprite, 100, 100);
+    }
+
 
     
 

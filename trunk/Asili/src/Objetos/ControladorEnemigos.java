@@ -16,12 +16,14 @@ import javax.microedition.lcdui.game.Sprite;
 public class ControladorEnemigos {
 
     private Vector contenedor;
+    private int score;
 
     /**
      * El metodo constructor que crea un nuevo vector
      */
     public ControladorEnemigos() {
         this.contenedor = new Vector();
+        this.score = 0;
     }
 
 
@@ -70,6 +72,10 @@ public class ControladorEnemigos {
         }
     }
 
+    public void vaciarControlador() {
+        this.contenedor.removeAllElements();
+    }
+
     /**
      * Actualiza la posición y estado de todos los enemigos en el Vector
      * @param avatarX - La posición actual de X, para realizar algunas maniobras.
@@ -79,9 +85,14 @@ public class ControladorEnemigos {
             Enemigo temporal = (Enemigo) this.contenedor.elementAt(i);
             temporal.actualizar(avatarX);
             if(temporal.destruido) {
+                this.score = score + temporal.valor;
                 this.contenedor.removeElementAt(i);
             }
         }
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
     /**
@@ -91,8 +102,6 @@ public class ControladorEnemigos {
     public String toString() {
         return this.contenedor.size() + "";
     }
-
-
 
 }
 

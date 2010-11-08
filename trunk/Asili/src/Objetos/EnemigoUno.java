@@ -16,6 +16,7 @@ public class EnemigoUno extends Enemigo {
     public EnemigoUno(int ancho, int alto, int idleTime, Image imagen) {
         super(ancho, alto, idleTime, imagen);
         this.setRefPixelPosition(ancho/2, alto);
+        super.valor = 100;
 
     }
 

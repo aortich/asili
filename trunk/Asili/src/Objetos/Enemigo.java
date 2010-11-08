@@ -20,6 +20,7 @@ public class Enemigo extends Sprite {
     boolean destruido;
     int idleTime;
     int tiempoActual;
+    int valor;
 
     /**
      *
@@ -33,6 +34,7 @@ public class Enemigo extends Sprite {
         this.destruido = false;
         this.idleTime = idleTime;
         this.tiempoActual = 0;
+        this.valor = 0;
     }
 
     /**
@@ -58,6 +60,10 @@ public class Enemigo extends Sprite {
     public void destruir(boolean destruido) {
        System.out.println(this.destruido);
         this.destruido = destruido;
+    }
+
+    public int getValor() {
+        return this.valor;
     }
 
     
