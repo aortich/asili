@@ -41,6 +41,10 @@ public class ControladorProyectil {
         return (Proyectil)this.contenedor.elementAt(index);
     }
 
+    public void vaciarControlador() {
+        this.contenedor.removeAllElements();
+    }
+
 
     /**
      * Agrega un proyectil al Vector

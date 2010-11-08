@@ -67,7 +67,7 @@ public class Asili extends GameCanvas {
      * Imagen precargada
      */
     public static Image balaAvatarUno, enemigoUno, enemigoDos, bala1, bala2
-    , botonPausa, botonContinuar, botonSalir, fondoPausa;
+    , botonPausa, botonContinuar, botonSalir, fondoPausa, muerte, avatarSprite;
    // private static final int LIMITE_PROYECTILES = 30;
    //private int contadorBalas;
     /**
@@ -104,6 +104,7 @@ public class Asili extends GameCanvas {
         controladorProyectiles = new ControladorProyectil();
         this.controladorEnemigos = new ControladorEnemigos();
         this.pausado = false;
+        this.nivel = 1;
         this.disparoDesbloqueado = true;
         this.setFullScreenMode(true);
         this.midlet = midlet;
@@ -118,6 +119,8 @@ public class Asili extends GameCanvas {
         botonContinuar = Image.createImage("/imagenes/continuar.png");
         botonSalir = Image.createImage("/imagenes/salir.png");
         fondoPausa = Image.createImage("/imagenes/Fondopausa.png");
+        muerte = Image.createImage("/imagenes/muerte.png");
+        avatarSprite = Image.createImage("/imagenes/avatarSprite.png");
         this.spriteBotonContinuar = new SpriteBotonContinuar();
         this.spriteBotonPausa = new SpriteBotonPausa();
         this.spriteBotonSalir = new SpriteBotonSalir();
@@ -234,10 +237,55 @@ public class Asili extends GameCanvas {
             } else {
                 if(proyectilTemp.collidesWith(avatar, true)) {
                     proyectilTemp.detectarColision(true);
-                    //Terminar Juego
+                    avatar.destruirAvatar();
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    this.spawner.vaciarLista();
+                    controladorEnemigos.vaciarControlador();
+                    controladorProyectiles.vaciarControlador();
+                    this.spawner.llenarInstrucciones();
+                    this.avatar.reconstruirAvatar();
                 }
             }
         }
+
+        for(int i = 0; i < controladorEnemigos.getSize() - 1; i++) {
+           Enemigo enemigoTemp = controladorEnemigos.enemigoAt(i);
+            if(enemigoTemp.collidesWith(avatar, true)) {
+                avatar.destruirAvatar();
+                int e = 0;
+                while(e < 2000) {
+                    e += Animador.RETARDO;
+                }
+                this.spawner.vaciarLista();
+                controladorEnemigos.vaciarControlador();
+                controladorProyectiles.vaciarControlador();
+                this.spawner.llenarInstrucciones();
+                this.avatar.reconstruirAvatar();
+            }
+        }
+
+    }
+
+    public void cambiarNivel() {
+        this.nivel++;
+        if (this.nivel < 4) {
+            try {
+                this.fondo = new Fondo("/imagenes/FondoNivel" + this.nivel, 2);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            this.spawner.setNivel(this.nivel);
+            this.spawner.llenarInstrucciones();
+        }
+    }
+
+    public void resetNivel() {
+        this.spawner.setNivel(nivel);
+        this.spawner.llenarInstrucciones();
     }
 
     /**
@@ -248,6 +296,7 @@ public class Asili extends GameCanvas {
         if (!pausado) {
             System.out.println(controladorEnemigos);
             controladorEnemigos.actualizar(this.avatar.getX());
+            this.spawner.comenzarCuenta();
             avatar.mover();
             spawner.actualizar(Animador.RETARDO);
             fondo.actualizar();
@@ -275,9 +324,10 @@ public class Asili extends GameCanvas {
         this.spriteBotonPausa.dibujar(g);
         controladorProyectiles.dibujar(g);
         this.controladorEnemigos.dibujar(g);
+        g.drawString("Score: " + controladorEnemigos.getScore(), 20, 5, Graphics.LEFT|Graphics.TOP);
+        g.drawString("Vidas: " + avatar.getVidas(), 20, 20, Graphics.LEFT|Graphics.TOP);
+        g.drawString("Nivel: " + nivel, 20, 35, Graphics.LEFT|Graphics.TOP);
           if(pausado) {
-            spriteBotonContinuar.dibujar(g);
-            spriteBotonSalir.dibujar(g);
             g.drawImage(fondoPausa, 0, 0, Graphics.LEFT|Graphics.TOP);
 
         }

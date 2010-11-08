@@ -60,4 +60,8 @@ public class ListaInstrucciones {
                 lista.addElement(new Instruccion(2, 4000, 1500));
         }
     }
+
+    public void vaciarLista() {
+        this.lista.removeAllElements();
+    }
 }

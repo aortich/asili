@@ -29,6 +29,7 @@ public class EnemigoDos extends Enemigo{
         velocidadV = 1;
         super.setFrame(1);
         this.setRefPixelPosition(ancho/2, alto);
+        super.valor = 100;
 
     }
 

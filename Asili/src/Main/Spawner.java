@@ -17,7 +17,7 @@ public class Spawner {
     private Instruccion instruccion;
     private ListaInstrucciones listaInstrucciones;
     private boolean esTiempo;
-    private boolean juegoTerminado;
+    private boolean nivelTerminado, comenzarCuenta;
 
     /**
      *
@@ -30,7 +30,12 @@ public class Spawner {
         listaInstrucciones.llenarLista(nivelActual);
         instruccion = listaInstrucciones.siguienteInstruccion();
         esTiempo = false;
-        juegoTerminado = false;
+        nivelTerminado = false;
+        comenzarCuenta = false;
+    }
+
+    public void vaciarLista() {
+        this.listaInstrucciones.vaciarLista();
     }
 
     /**
@@ -38,9 +43,12 @@ public class Spawner {
      * @param tiempo EL tiempo que se agrega, en milisegundos
      */
     public void actualizar(int tiempo) {
-        tiempoActual += tiempo;
-        if(tiempoActual >= instruccion.getTiempoAparicion() )
-            esTiempo = true;
+        if (this.comenzarCuenta) {
+            tiempoActual += tiempo;
+            if (tiempoActual >= instruccion.getTiempoAparicion()) {
+                esTiempo = true;
+            }
+        }
     }
 
     /**
@@ -81,7 +89,7 @@ public class Spawner {
      * @return regresa si el juego ya termino
      */
     public boolean juegoTerminado() {
-        return juegoTerminado;
+        return nivelTerminado;
     }
 
     /**
@@ -92,6 +100,18 @@ public class Spawner {
         return instruccion;
     }
 
+    public void comenzarCuenta() {
+        this.comenzarCuenta = true;
+    }
+
+    public void detenerCuenta() {
+        this.comenzarCuenta = false;
+    }
+
+    public void llenarInstrucciones() {
+        this.listaInstrucciones.llenarLista(nivelActual);
+    }
+
 
     /**
      * Pasa a la siguiente instrucción. SI la siguiente instrucción es null, el juego termina
@@ -99,8 +119,8 @@ public class Spawner {
     public void siguienteInstruccion() {
         instruccion = listaInstrucciones.siguienteInstruccion();
         resetTiempo();
-        if(instruccion == null) {
-            juegoTerminado = true;
+        if(!listaInstrucciones.hasNext()) {
+            nivelTerminado = true;
         }
     }
 
