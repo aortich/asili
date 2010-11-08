@@ -8,7 +8,7 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
 /**
- *
+ * EL Canvas que contiene al menu principal
  * @author Fer
  */
 public class MenuPrincipal extends GameCanvas {
@@ -24,6 +24,10 @@ public class MenuPrincipal extends GameCanvas {
     private SpriteCreditos spriteCreditos;
     private Animador animador;
 
+    /**
+     *
+     * @param midlet - El midlet AppAsili que controla el display
+     */
     public MenuPrincipal(AppAsili midlet) {
         super(true);
 
@@ -37,7 +41,7 @@ public class MenuPrincipal extends GameCanvas {
             spriteTrama = new SpriteTrama(0,3);
             spriteInstrucciones = new SpriteInstrucciones(0,3);
             spriteHighscores = new SpriteHighscores (0,3);
-            spriteCreditos = new SpriteCreditos (0,3);
+            spriteCreditos = new SpriteCreditos (0, 3);
             fondo = new FondoMenu("/imagenes/menuPrincipal.jpg");
         } catch (IOException ex) {
             System.out.println("Error de IO");
@@ -50,6 +54,11 @@ public class MenuPrincipal extends GameCanvas {
     }
     //Comprobación de cajas (Qué opción de seleccionó)
 
+    /**
+     *
+     * @param aX - Las coordenadas X del stylus
+     * @param aY - Las coordenadas Y del stylus
+     */
     protected void pointerPressed(int aX, int aY) {
         //Caja de la opción inicio
         if (aX >= (spriteInicio.getX()) && aX <= (spriteInicio.getX() + spriteInicio.getWidth())
@@ -83,6 +92,9 @@ public class MenuPrincipal extends GameCanvas {
 
     }
 
+    /**
+     * El método que dibuja el Canvas y todos los sprites dentro del mismo
+     */
     public void dibujar(){
         fondo.dibujar(g);
         spriteInicio.dibujar(g);
@@ -95,6 +107,9 @@ public class MenuPrincipal extends GameCanvas {
 
     }
 
+    /**
+     * El método que actualiza el Canvas
+     */
     public void actualizar(){
        // fondo.actualizar();
         //spriteInicio.actualizar();

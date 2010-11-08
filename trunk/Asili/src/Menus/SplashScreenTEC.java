@@ -23,7 +23,11 @@ public class SplashScreenTEC extends GameCanvas {
     private Graphics g;
     private Animador animador;
 
-    public SplashScreenTEC (AppAsili midlet) {
+    /**
+     * El Splash Screen con el logo del TEC
+     * @param midlet - EL midlet AppAsili que controla el display
+     */
+    public SplashScreenTEC(AppAsili midlet) {
         super(true);
         this.midlet = midlet;
         try {
@@ -35,11 +39,17 @@ public class SplashScreenTEC extends GameCanvas {
         animador = new Animador(this);
     }
 
+    /**
+     * El método que dibuja el logo del TEC
+     */
     public void dibujar() {
         g.drawImage(logoTec, 0, 0, Graphics.LEFT|Graphics.TOP);
         flushGraphics();
     }
 
+    /**
+     * El método que actualiza el Canvas
+     */
     public void actualizar() {
         //TODO: Fade-outs  supongo
     }

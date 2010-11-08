@@ -12,7 +12,7 @@ import javax.microedition.lcdui.game.Sprite;
  * and open the template in the editor.
  */
 /**
- *
+ * Las balas que aparecen en el juego. DE esta heredan ambas, las balas de los enemigos, y las del avatar.
  * @author Fer
  */
 public class Proyectil extends Sprite {

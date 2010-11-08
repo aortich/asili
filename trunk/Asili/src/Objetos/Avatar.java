@@ -13,7 +13,7 @@ import javax.microedition.lcdui.game.Sprite;
  */
 
 /**
- *
+ * El avatar del jugador, es la nave que el controla  a través del stylus
  */
 public class Avatar extends Sprite{
 
@@ -27,6 +27,12 @@ public class Avatar extends Sprite{
     private Asili asili;
 
 
+    /**
+     *
+     * @param x - Posición en el eje x del avatar
+     * @param y - Posición en el eje y del avatar
+     * @throws IOException  - Excepción enviada si ocurre un problema con la ruta especificada
+     */
     public Avatar(int x, int y) throws IOException {
 
         super (Image.createImage("/imagenes/avatarSprite.png"),100, 100);
@@ -43,20 +49,35 @@ public class Avatar extends Sprite{
         this.INC_Y = 0;
     }
 
+    /**
+     * Dibuja al avatar
+     * @param g - Permite dibujar
+     */
     public void dibujar(Graphics g) {
 
         super.paint(g);
     }
 
+    /**
+     * Cambia el valor de INC_X pr el dado en el parámetro
+     * @param INCX - El nuevo valor de INC_X
+     */
     public void setINCX(int INCX) {
         this.INC_X = INCX;
     }
 
-        public void setINCY(int INCY) {
+    /**
+     * Cambia el valor de INC_Y pr el dado en el parámetro
+     * @param INCY el nuevo valor de INC_Y
+     */
+    public void setINCY(int INCY) {
         this.INC_Y = INCY;
     }
 
-    public void mover() {
+        /**
+         * Mueve al avatar de acuerdo a INC_X y a INC_Y. También anima al avatar.
+         */
+        public void mover() {
         if(INC_X > this.getX()) {
             super.setFrame(3);
         }
@@ -66,34 +87,66 @@ public class Avatar extends Sprite{
         setPosition(INC_X, INC_Y);
     }
 
-    public int getCargaSolar() {
+        /**
+         * Regresa la cantidad de carga solar
+         * @return regresa un int con la carga solar
+         */
+        public int getCargaSolar() {
         return cargaSolar;
     }
 
+    /**
+     * Cambia el valor de la carga solar
+     * @param cargaSolar El nuevo valor de la carga solar
+     */
     public void setCargaSolar(int cargaSolar) {
         this.cargaSolar = cargaSolar;
     }
 
+    /**
+     * EL contador de power ups que tiene el jugador
+     * @return el número de power ups que se han colectado
+     */
     public int getContadorPowerUps() {
         return contadorPowerUps;
     }
 
+    /**
+     *
+     * @param contadorPowerUps
+     */
     public void setContadorPowerUps(int contadorPowerUps) {
         this.contadorPowerUps = contadorPowerUps;
     }
 
+    /**
+     * Regresa si el escudo está o no activado
+     * @return - El valor del escudo.
+     */
     public boolean isEscudoActivado() {
         return escudoActivado;
     }
 
+    /**
+     * Cambia el estado del escudo a cualquiera que sea especificado
+     * @param escudoActivado El parámetro booleano, que sera el nuevo estado del escudo
+     */
     public void setEscudoActivado(boolean escudoActivado) {
         this.escudoActivado = escudoActivado;
     }
 
+    /**
+     * El número de vidas del jugador
+     * @return UN int con el npumero de vidas
+     */
     public int getVidas() {
         return vidas;
     }
 
+    /**
+     * Cambia el número de vidas por uno especificado
+     * @param vidas - El nuevo número de vidas
+     */
     public void setVidas(int vidas) {
         this.vidas = vidas;
     }

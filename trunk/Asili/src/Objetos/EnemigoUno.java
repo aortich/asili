@@ -8,7 +8,7 @@ package Objetos;
 import javax.microedition.lcdui.Image;
 
 /**
- *
+ * El enemigo Uno
  * @author Alberto Ortiz
  */
 public class EnemigoUno extends Enemigo {
@@ -19,7 +19,7 @@ public class EnemigoUno extends Enemigo {
 
     }
 
-    public void actualizar() {
+    public void actualizar(int avatarX) {
         super.move(1, 2);
     }
 

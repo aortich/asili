@@ -13,7 +13,8 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.*;
 
 /**
- * @author Fer
+ * MIDlet del juego, maneja el display actual e interactua con el celular
+ * @author Alberto, Fernando
  */
 public class AppAsili extends MIDlet {
 
@@ -24,8 +25,14 @@ public class AppAsili extends MIDlet {
     private InstruccionesCanvas instruccionesCanvas;
     private HiSCanvas hiScores;
     private CreditosCanvas creditosCanvas;
+    /**
+     * El display actual, que muestra los distintos canvas
+     */
     public Display display;
      
+    /**
+     * Método constructor, inicializa solamente splash y nemu principal.
+     */
     public AppAsili() {
 
         display = Display.getDisplay(this);
@@ -39,6 +46,9 @@ public class AppAsili extends MIDlet {
         
        
     }
+    /**
+     * Empieza la aplicación: muestra el splash screen, espera 3 segundos, y después muestra el menu¨principal.
+     */
     public void startApp() {
 
          display.setCurrent(splash);
@@ -52,6 +62,10 @@ public class AppAsili extends MIDlet {
 
     }
 
+    /**
+     * Cambia el display, crea los elementos que se van a mostrar en el display, y destruye los que no se usarán inmediatamente
+     * @param opcion - Se envía una opción, para que actualizarApp sepa que clases construir y destruir, y la pantalla que debe de mostrar en el display
+     */
     public void actualizarApp(int opcion) {
         switch(opcion){
             case 1:
@@ -136,9 +150,16 @@ public class AppAsili extends MIDlet {
     }
 
 
+    /**
+     * Pausa la palicación
+     */
     public void pauseApp() {
     }
 
+    /**
+     *
+     * @param unconditional
+     */
     public void destroyApp(boolean unconditional) {
     }
 }
