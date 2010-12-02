@@ -53,11 +53,25 @@ public class ListaInstrucciones {
         switch (nivel) {
 
             case 1:
-                lista.addElement(new Instruccion(2, 5000, 2000));
-                lista.addElement(new Instruccion(2, 5500, 2000));
-                lista.addElement(new Instruccion(2, 6000, 1500));
-                lista.addElement(new Instruccion(2, 6500, 1500));
-                lista.addElement(new Instruccion(2, 7000, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2000, 2000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2500, 2000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3000, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3500, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 4000, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 4500, 2000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 5000, 2000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 6000, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 6500, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 7000, 1500));
+
+                break;
+            case 2:
+
+                break;
+
+            case 3:
+
+                break;
         }
     }
 
