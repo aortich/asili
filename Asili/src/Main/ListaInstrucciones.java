@@ -54,7 +54,6 @@ public class ListaInstrucciones {
 
             case 1:
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2000, 2000));
-                /*
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2500, 2000));
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3000, 1500));
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3500, 1500));
@@ -64,9 +63,6 @@ public class ListaInstrucciones {
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 6000, 1500));
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 6500, 1500));
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 7000, 1500));
-                 * 
-                 */
-
                 break;
             case 2:
                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 2000, 1000));
@@ -93,6 +89,26 @@ public class ListaInstrucciones {
                 break;
 
             case 3:
+                 lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 2000, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 2200, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 2400, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2500, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 2600, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3000, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 3100, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 3200, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 3500, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 4200, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 4300, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 4500, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 4700, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 4800, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 4900, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 5000, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 1, 5200, 1000));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 5600, 500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 5800, 1500));
+                lista.addElement(new Instruccion(Asili.ANCHO + 30, Asili.ALTO + 30, 2, 6000, 1500));
 
                 break;
         }
