@@ -1,17 +1,21 @@
 package Menus;
 
 
+
+
 import Main.Animador;
 import Main.AppAsili;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
+
 /**
- *EL Canvas con las puntaciones más altas
- * @author Alberto Ortiz
+ *Canvas de Felicitaciones
+ * @author Fernando Moreno
  */
-public class HiSCanvas extends GameCanvas {
+public class FelicitacionCanvas extends GameCanvas {
+
 
     private AppAsili midlet;
     private Graphics g;
@@ -20,29 +24,29 @@ public class HiSCanvas extends GameCanvas {
 
 
 
+
+
+
     /**
      *
      * @param midlet - El midlet AppAsili que controla el display
      */
-    public HiSCanvas(AppAsili midlet) {
+    public FelicitacionCanvas(AppAsili midlet) {
         super(true);
+
 
         this.midlet = midlet;
         this.setFullScreenMode(true);
         g = this.getGraphics();
         try {
-            fondo = new FondoMenu("/imagenes/highscores.jpg");
+            fondo = new FondoMenu("/imagenes/felicitacion.jpg");
         } catch (IOException ex) {
             System.out.println("Error de IO en clase HiSCanvas");
             ex.printStackTrace();
         }
-
-
         animador = new Animador(this);
         animador.iniciar();
-
     }
-
 
     /**
      *
@@ -52,24 +56,21 @@ public class HiSCanvas extends GameCanvas {
     protected void pointerPressed(int aX, int aY) {
        midlet.actualizarApp(0);
        animador.detener();
-
     }
 
+
     /**
-     * EL método que dibuja el Canvas
+     * El método que dibuja la felicitación en la pantalla
      */
     public void dibujar(){
         fondo.dibujar(g);
         this.flushGraphics();
-
     }
-    //probable animación
-
-
     /**
-     * El método que actualiza el canvas.
+     * EL método actualizar
      */
     public void actualizar() {
-        
+
+
     }
 }

@@ -19,7 +19,7 @@ public class Avatar extends Sprite{
 
     private int INC_X, INC_Y;
     private int contadorPowerUps;
-    private boolean escudoActivado;
+    private boolean escudoActivado, muerto;
     private int vidas;
     private int cargaSolar;
     private Image nave, muerte;
@@ -34,19 +34,21 @@ public class Avatar extends Sprite{
     public Avatar(int x, int y, Image imagen, Image muerte) throws IOException {
 
         super (imagen,100, 100);
+        this.muerto = false;
         this.nave = imagen;
         this.muerte = muerte;
         super.defineReferencePixel(this.getWidth()/2, this.getHeight()/2);
-        setPosition(x, y);
+        setPosition(Asili.ANCHO/2, Asili.ALTO - this.getHeight());
         
-        super.setFrame(2);
+        
         super.setFrameSequence(new int [] {0, 1, 2, 3, 4});
+        super.setFrame(2);
         contadorPowerUps = 0;
         escudoActivado = false;
         vidas = 3;
         cargaSolar = 10;
-        this.INC_X = 0;
-        this.INC_Y = 0;
+        this.INC_X = Asili.ANCHO/2;
+        this.INC_Y = Asili.ALTO - this.getHeight();
     }
 
     /**
@@ -153,13 +155,29 @@ public class Avatar extends Sprite{
 
     public void destruirAvatar() {
         this.setImage(muerte, 100, 100);
-        int [] arreglo = {0, 0, 1, 1, 2, 2};
+        int [] arreglo = {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
+        this.muerto = true;
         this.setFrameSequence(arreglo);
         this.vidas--;
     }
 
     public void reconstruirAvatar() {
         this.setImage(nave, 100, 100);
+        this.muerto = false;
+        super.setFrameSequence(new int [] {0, 1, 2, 3, 4});
+        super.setFrame(2);
+        contadorPowerUps = 0;
+        escudoActivado = false;
+        cargaSolar = 10;
+        this.INC_X = 0;
+        this.INC_Y = 0;
+        setPosition(Asili.ANCHO/2, Asili.ALTO - this.getHeight());
+    }
+
+    public void actualizar() {
+        if(muerto) {
+            this.nextFrame();
+        }
     }
 
 

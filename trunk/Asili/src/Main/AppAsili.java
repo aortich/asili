@@ -3,6 +3,8 @@ package Main;
 
 
 import Menus.CreditosCanvas;
+import Menus.FelicitacionCanvas;
+import Menus.GameOverCanvas;
 import Menus.HiSCanvas;
 import Menus.InstruccionesCanvas;
 import Menus.MenuPrincipal;
@@ -25,6 +27,8 @@ public class AppAsili extends MIDlet {
     private InstruccionesCanvas instruccionesCanvas;
     private HiSCanvas hiScores;
     private CreditosCanvas creditosCanvas;
+    private GameOverCanvas gameOver;
+    private FelicitacionCanvas felicitacion;
     /**
      * El display actual, que muestra los distintos canvas
      */
@@ -88,6 +92,8 @@ public class AppAsili extends MIDlet {
                 tramaCanvas= new TramaCanvas(this);
                 display.setCurrent(tramaCanvas);
 
+                asili.destruir();
+
                 asili = null;
                 splash = null;
                 instruccionesCanvas = null;
@@ -99,6 +105,8 @@ public class AppAsili extends MIDlet {
             case 3:
                 instruccionesCanvas = new InstruccionesCanvas(this);
                 display.setCurrent (instruccionesCanvas);
+
+                asili.destruir();
 
                 asili = null;
                 splash = null;
@@ -112,6 +120,8 @@ public class AppAsili extends MIDlet {
                 hiScores = new HiSCanvas(this);
                 display.setCurrent (hiScores);
 
+                asili.destruir();
+
                 asili = null;
                 splash = null;
                 tramaCanvas = null;
@@ -123,6 +133,8 @@ public class AppAsili extends MIDlet {
             case 5:
                 creditosCanvas = new CreditosCanvas (this);
                 display.setCurrent (creditosCanvas);
+
+                asili.destruir();
 
                 asili = null;
                 splash = null;
@@ -136,6 +148,8 @@ public class AppAsili extends MIDlet {
                 menuPrincipal = new MenuPrincipal(this);
                 display.setCurrent(menuPrincipal);
 
+                asili.destruir();
+
                 asili = null;
                 splash = null;
                 tramaCanvas = null;
@@ -144,6 +158,37 @@ public class AppAsili extends MIDlet {
                 creditosCanvas = null;
 
                 break;
+                
+            case 7:
+
+
+                asili.destruir();
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+                creditosCanvas = null;
+
+                break;
+
+            case 8:
+                felicitacion = new FelicitacionCanvas(this);
+                display.setCurrent(felicitacion);
+
+                asili.destruir();
+
+                asili = null;
+                splash = null;
+                tramaCanvas = null;
+                instruccionesCanvas = null;
+                hiScores = null;
+                creditosCanvas = null;
+                
+                break;
+
+
             default:
                 break;
         }

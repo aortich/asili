@@ -14,8 +14,9 @@ import javax.microedition.lcdui.Image;
  */
 public class EnemigoDos extends Enemigo{
 
-    int velocidadH, velocidadV;
+    int velocidadH, velocidadV, tiempo;
     Image imagenBala;
+    boolean haDisparado;
 
     /**
      *
@@ -27,6 +28,7 @@ public class EnemigoDos extends Enemigo{
     public EnemigoDos(int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
         super(ancho, alto, idleTime, imagen);
         this.imagenBala = imagenBala;
+        this.haDisparado = false;
         velocidadH = 0;
         velocidadV = 1;
         super.setFrame(1);
@@ -35,8 +37,16 @@ public class EnemigoDos extends Enemigo{
 
     }
 
-    public void actualizar(int avatarX) {
+    public void actualizar(int avatarX, int avatarY, int retardo) {
+        if(this.detectarLimites() && this.tiempo > this.idleTime) {
+            this.destruir(true);
+        }
+        super.tiempoActual += retardo;
         cambiarDireccion(avatarX);
+        if (super.tiempoActual == super.idleTime/4) {
+            this.disparar();
+            this.haDisparado = true;
+        }
         this.move(this.velocidadH, this.velocidadV);
     }
 
@@ -60,10 +70,12 @@ public class EnemigoDos extends Enemigo{
      * Método que agrega proyectiles al arreglo
      */
     public void disparar() {
-        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) + 15, this.getHeight(), 1, 100, 100, this.imagenBala));
-        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) + 30, this.getHeight(), 1, 100, 100, this.imagenBala));
-        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) - 15, this.getHeight(), 1, 100, 100, this.imagenBala));
-        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) - 30, this.getHeight(), 1, 100, 100, this.imagenBala));
+        if (!haDisparado) {
+            Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(0, 5, (this.getX() + ((this.getWidth() / 2) + 15)), this.getY(), 1, 30, 30, this.imagenBala));
+            Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(0, 5, (this.getX() + ((this.getWidth() / 2) + 30)), this.getY(), 1, 30, 30, this.imagenBala));
+            Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(0, 5, (this.getX() + ((this.getWidth() / 2) - 15)), this.getY(), 1, 30, 30, this.imagenBala));
+            Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(0, 5, (this.getX() + ((this.getWidth() / 2) - 30)), this.getY(), 1, 30, 30, this.imagenBala));
+        }
     }
 
 }

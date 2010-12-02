@@ -1,7 +1,7 @@
 package Objetos;
 
 
-import java.io.IOException;
+import Main.Asili;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
@@ -17,7 +17,7 @@ import javax.microedition.lcdui.game.Sprite;
  */
 public class Enemigo extends Sprite {
 
-    boolean destruido;
+    boolean destruido, fueraDeLimites;
     int idleTime;
     int tiempoActual;
     int valor;
@@ -49,7 +49,8 @@ public class Enemigo extends Sprite {
      * Actualiza la posición del enemigo
      * @param avatarX - Para obtener la posición del avatar
      */
-    public void actualizar(int avatarX) {
+    public void actualizar(int avatarX, int avatarY, int retardo) {
+        this.tiempoActual += retardo;
         move(3, -3);
     }
 
@@ -58,12 +59,18 @@ public class Enemigo extends Sprite {
      * @param destruido - EL estado futuro del enemigo
      */
     public void destruir(boolean destruido) {
-       System.out.println(this.destruido);
         this.destruido = destruido;
     }
 
     public int getValor() {
         return this.valor;
+    }
+
+    public boolean detectarLimites() {
+        if (this.getX() > Asili.ANCHO || this.getX() < 0 || this.getY() > Asili.ALTO || this.getY() < 0) {
+            return true;
+        }
+        return false;
     }
 
     
