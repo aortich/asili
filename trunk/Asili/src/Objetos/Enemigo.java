@@ -29,8 +29,9 @@ public class Enemigo extends Sprite {
      * @param idleTime El tiempo que el enemigo deberia de estar en el escenario
      * @param imagen El spritesheet del enemigo
      */
-    public Enemigo(int ancho, int alto, int idleTime, Image imagen) {
+    public Enemigo(int x, int y, int ancho, int alto, int idleTime, Image imagen) {
         super(imagen,ancho,alto);
+        this.setPosition(x, y);
         this.destruido = false;
         this.idleTime = idleTime;
         this.tiempoActual = 0;

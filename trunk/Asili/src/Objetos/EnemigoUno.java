@@ -16,9 +16,11 @@ public class EnemigoUno extends Enemigo {
 
     int tiempo, velH, velV;
     Image bala;
+    boolean haDisparado;
 
-    public EnemigoUno(int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
-        super(ancho, alto, idleTime, imagen);
+    public EnemigoUno(int x, int y, int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
+        super(x, y, ancho, alto, idleTime, imagen);
+        this.setPosition(x, y);
         int tiempo = 0;
         this.setRefPixelPosition(ancho/2, alto);
         super.valor = 100;
@@ -33,6 +35,10 @@ public class EnemigoUno extends Enemigo {
         this.apuntar(avatarX, avatarY);
         this.tiempo += retardo;
         super.move(1, 2);
+        if(tiempo > idleTime/4) {
+            this.disparar();
+            this.haDisparado = true;
+        }
     }
 
     public void apuntar(int avatarX, int avatarY) {
@@ -48,7 +54,8 @@ public class EnemigoUno extends Enemigo {
     }
 
     public void disparar() {
-        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(this.velH, this.velV, (this.getX() + ((this.getWidth() / 2))), this.getY(), 1, 30, 30, this.bala));
+        if(!haDisparado)
+            Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(this.velH, this.velV, (this.getX() + ((this.getWidth() / 2))), this.getY(), 1, 30, 30, this.bala));
     }
 
 

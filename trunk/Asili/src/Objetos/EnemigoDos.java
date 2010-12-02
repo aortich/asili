@@ -25,8 +25,9 @@ public class EnemigoDos extends Enemigo{
      * @param idleTime EL tiempo que el enemigo deberia de estar en el escenario, en milisegundos
      * @param imagen EL spritesheet del enemigo
      */
-    public EnemigoDos(int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
-        super(ancho, alto, idleTime, imagen);
+    public EnemigoDos(int x, int y, int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
+        super(x, y, ancho, alto, idleTime, imagen);
+        this.setPosition(x, y);
         this.imagenBala = imagenBala;
         this.haDisparado = false;
         velocidadH = 0;

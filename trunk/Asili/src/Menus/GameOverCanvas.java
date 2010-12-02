@@ -52,7 +52,7 @@ public class GameOverCanvas extends GameCanvas {
      * @param aY - La coordenada Y del stylus
      */
     protected void pointerPressed(int aX, int aY) {
-       midlet.actualizarApp(0);
+       midlet.actualizarApp(6);
        animador.detener();
 
 
