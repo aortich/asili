@@ -268,6 +268,8 @@ public class Asili extends GameCanvas {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            this.controladorProyectiles.vaciarControlador();
+            this.controladorEnemigos.vaciarControlador();
             this.spawner.setNivel(this.nivel);
             this.spawner.llenarInstrucciones();
             this.inicioNivel = true;
