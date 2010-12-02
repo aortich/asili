@@ -255,8 +255,6 @@ public class Animador implements Runnable {
             default:
                 break;
         }
-
-
     }
 
     /**

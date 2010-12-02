@@ -22,6 +22,7 @@ public class Avatar extends Sprite{
     private boolean escudoActivado;
     private int vidas;
     private int cargaSolar;
+    private Image nave, muerte;
 
 
     /**
@@ -30,9 +31,11 @@ public class Avatar extends Sprite{
      * @param y - Posición en el eje y del avatar
      * @throws IOException  - Excepción enviada si ocurre un problema con la ruta especificada
      */
-    public Avatar(int x, int y) throws IOException {
+    public Avatar(int x, int y, Image imagen, Image muerte) throws IOException {
 
-        super (Asili.avatarSprite,100, 100);
+        super (imagen,100, 100);
+        this.nave = imagen;
+        this.muerte = muerte;
         super.defineReferencePixel(this.getWidth()/2, this.getHeight()/2);
         setPosition(x, y);
         
@@ -149,14 +152,14 @@ public class Avatar extends Sprite{
     }
 
     public void destruirAvatar() {
-        this.setImage(Asili.muerte, 100, 100);
+        this.setImage(muerte, 100, 100);
         int [] arreglo = {0, 0, 1, 1, 2, 2};
         this.setFrameSequence(arreglo);
         this.vidas--;
     }
 
     public void reconstruirAvatar() {
-        this.setImage(Asili.avatarSprite, 100, 100);
+        this.setImage(nave, 100, 100);
     }
 
 

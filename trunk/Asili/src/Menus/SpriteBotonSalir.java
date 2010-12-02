@@ -7,6 +7,7 @@ package Menus;
 
 import Main.Asili;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
 /**
@@ -18,8 +19,8 @@ public class SpriteBotonSalir extends Sprite {
     /**
      * El constructor que toma una imágen, y toma la posición indicada
      */
-    public SpriteBotonSalir() {
-        super(Asili.botonSalir);
+    public SpriteBotonSalir(Image imagen) {
+        super(imagen);
         setPosition(this.getWidth(), (Asili.ANCHO/2) + this.getHeight());
     }
     

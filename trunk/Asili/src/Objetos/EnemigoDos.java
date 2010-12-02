@@ -15,6 +15,7 @@ import javax.microedition.lcdui.Image;
 public class EnemigoDos extends Enemigo{
 
     int velocidadH, velocidadV;
+    Image imagenBala;
 
     /**
      *
@@ -23,8 +24,9 @@ public class EnemigoDos extends Enemigo{
      * @param idleTime EL tiempo que el enemigo deberia de estar en el escenario, en milisegundos
      * @param imagen EL spritesheet del enemigo
      */
-    public EnemigoDos(int ancho, int alto, int idleTime, Image imagen) {
+    public EnemigoDos(int ancho, int alto, int idleTime, Image imagen, Image imagenBala) {
         super(ancho, alto, idleTime, imagen);
+        this.imagenBala = imagenBala;
         velocidadH = 0;
         velocidadV = 1;
         super.setFrame(1);
@@ -58,7 +60,10 @@ public class EnemigoDos extends Enemigo{
      * Método que agrega proyectiles al arreglo
      */
     public void disparar() {
-        Asili.controladorProyectiles.AgregarProyectil(null);
+        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) + 15, this.getHeight(), 1, 100, 100, this.imagenBala));
+        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) + 30, this.getHeight(), 1, 100, 100, this.imagenBala));
+        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) - 15, this.getHeight(), 1, 100, 100, this.imagenBala));
+        Asili.controladorProyectiles.AgregarProyectil(new BalaEnemigo(1, 1, (this.getWidth()/2) - 30, this.getHeight(), 1, 100, 100, this.imagenBala));
     }
 
 }

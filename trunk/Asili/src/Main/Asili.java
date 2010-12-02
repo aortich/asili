@@ -39,34 +39,8 @@ public class Asili extends GameCanvas {
     private SpriteBotonContinuar spriteBotonContinuar;
     private SpriteBotonPausa spriteBotonPausa;
     private SpriteBotonSalir spriteBotonSalir;
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    /**
-     * Imagen precargada
-     */
-    public static Image balaAvatarUno, enemigoUno, enemigoDos, bala1, bala2
+
+    private Image balaAvatarUno, enemigoUno, enemigoDos, bala1, bala2
     , botonPausa, botonContinuar, botonSalir, fondoPausa, muerte, avatarSprite;
    // private static final int LIMITE_PROYECTILES = 30;
    //private int contadorBalas;
@@ -76,7 +50,6 @@ public class Asili extends GameCanvas {
     public static ControladorProyectil controladorProyectiles;
     private Avatar avatar;
     private Spawner spawner;
-    private Enemigo enemigo;
     /**
      * El ANCHO actual de la aplicación.
      */
@@ -88,10 +61,8 @@ public class Asili extends GameCanvas {
     private Animador animador;  // Estará avisando a cada rato que se actualice y dibuje queda pendiente la clase
     private Graphics g;
     private AppAsili midlet;
-    private boolean pointIsDragged, pausado;
-    private Reloj reloj;
-
-
+    private boolean pointIsDragged, pausado, inicioNivel, pausaMuerte, avatarTocable;
+    private Reloj relojDisparos, relojNivel;
     /**
      *
      * @param EL midlet para que corra en un celular.
@@ -100,6 +71,9 @@ public class Asili extends GameCanvas {
     public Asili(AppAsili midlet) throws IOException {
         super(true);
         this.pointIsDragged = false;
+        this.avatarTocable = false;
+        this.inicioNivel = true;
+        this.pausaMuerte = false;
         this.spawner = new Spawner(1);
         controladorProyectiles = new ControladorProyectil();
         this.controladorEnemigos = new ControladorEnemigos();
@@ -121,14 +95,15 @@ public class Asili extends GameCanvas {
         fondoPausa = Image.createImage("/imagenes/Fondopausa.png");
         muerte = Image.createImage("/imagenes/muerte.png");
         avatarSprite = Image.createImage("/imagenes/avatarSprite.png");
-        this.spriteBotonContinuar = new SpriteBotonContinuar();
-        this.spriteBotonPausa = new SpriteBotonPausa();
-        this.spriteBotonSalir = new SpriteBotonSalir();
-        this.reloj = new Reloj(0);
+        this.spriteBotonContinuar = new SpriteBotonContinuar(botonContinuar);
+        this.spriteBotonPausa = new SpriteBotonPausa(botonPausa);
+            this.spriteBotonSalir = new SpriteBotonSalir(botonSalir);
+        this.relojDisparos = new Reloj(0);
+        this.relojNivel = new Reloj(0);
         g = this.getGraphics();
 
         try {
-            avatar = new Avatar(0, 3);
+            avatar = new Avatar(0, 3, this.avatarSprite, this.muerte);
             fondo = new Fondo("/imagenes/FondoNivel1.jpg", 2);
             //fondoPausa = new Fondo("/pausa.png", 0, 0); No sabemos ni que pex
         } catch (IOException ex) {
@@ -138,27 +113,24 @@ public class Asili extends GameCanvas {
 
         animador = new Animador(this);
         animador.iniciar();
-
-
-
-    }
-    
+    }  
     /**
      *
      * @param aX - Coordenada X del stylus
      * @param aY - Coordenada Y del stylus
      */
     protected void pointerPressed(int aX, int aY) {
-        if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
-                && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
-            this.pointIsDragged = true;
-        } else if(aX >= (spriteBotonPausa.getX()) && aX <= (spriteBotonPausa.getX() + spriteBotonPausa.getWidth())
-                && aY >= spriteBotonPausa.getY() && aY <= (spriteBotonPausa.getY() + spriteBotonPausa.getHeight())) {
-            this.pointIsDragged = false;
-            this.pausado = !pausado;
+        if (avatarTocable) {
+            if (aX >= (avatar.getX()) && aX <= (avatar.getX() + avatar.getWidth())
+                    && aY >= avatar.getY() && aY <= (avatar.getY() + avatar.getHeight())) {
+                this.pointIsDragged = true;
+            } else if (aX >= (spriteBotonPausa.getX()) && aX <= (spriteBotonPausa.getX() + spriteBotonPausa.getWidth())
+                    && aY >= spriteBotonPausa.getY() && aY <= (spriteBotonPausa.getY() + spriteBotonPausa.getHeight())) {
+                this.pointIsDragged = false;
+                this.pausado = !pausado;
+            }
         }
     }
-
     /**
      *
      * @param aX - Coordenada X del stylus
@@ -180,11 +152,9 @@ public class Asili extends GameCanvas {
             controladorProyectiles.AgregarProyectil(new BalaAvatarNivel1(this.avatar.getX() + (avatar.getWidth()/2), this.avatar.getY(), this.balaAvatarUno));
             System.out.println(this.avatar.getX() + "");
             this.disparoDesbloqueado = false;
-            this.reloj.resetReloj();
-        }
-            
+            this.relojDisparos.resetReloj();
+        }            
     }
-
     /**
      *
      * @param x - Coordenada x del stylus
@@ -201,7 +171,6 @@ public class Asili extends GameCanvas {
     public boolean getPointIsDragged() {
         return this.pointIsDragged;
     }
-
     /**
      * Agrega un enemigo al controladorEnemigos, lo que provoca su aparición en pantalla
      */
@@ -209,39 +178,58 @@ public class Asili extends GameCanvas {
         if(spawner.isTime()) {
             switch(spawner.getInstruccionActual().tipoEnemigo) {
                 case 1:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, enemigoUno ));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, enemigoUno, this.bala2 ));
                     break;
                 case 2:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(100, 100, spawner.getInstruccionActual().idleTime, enemigoDos));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(100, 100, spawner.getInstruccionActual().idleTime, enemigoDos, this.bala1));
                  default:
                      break;
             }
             spawner.siguienteInstruccion();
         }
     }
-
     /**
      * Detecta las colisiones necesarias.
      */
     public void detectarColision() {
-        for(int i = 0; i < controladorProyectiles.getSize() - 1; i++) {
-            Proyectil proyectilTemp = controladorProyectiles.proyectilAt(i);
-            if(proyectilTemp.perteneceAAvatar()) {
-                for(int j = 0; j < this.controladorEnemigos.getSize() -1; j++){
-                    Enemigo enemigoTemp = this.controladorEnemigos.enemigoAt(j);
-                    if(proyectilTemp.collidesWith(enemigoTemp, true)) {
+        if (!pausaMuerte) {
+            for (int i = 0; i < controladorProyectiles.getSize() - 1; i++) {
+                Proyectil proyectilTemp = controladorProyectiles.proyectilAt(i);
+                if (proyectilTemp.perteneceAAvatar()) {
+                    for (int j = 0; j < this.controladorEnemigos.getSize() - 1; j++) {
+                        Enemigo enemigoTemp = this.controladorEnemigos.enemigoAt(j);
+                        if (proyectilTemp.collidesWith(enemigoTemp, true)) {
+                            proyectilTemp.detectarColision(true);
+                            enemigoTemp.destruir(true);
+                        }
+                    }
+                } else {
+                    if (proyectilTemp.collidesWith(avatar, true)) {
                         proyectilTemp.detectarColision(true);
-                        enemigoTemp.destruir(true);
+                        avatar.destruirAvatar();
+                        pausaMuerte = true;
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        this.spawner.vaciarLista();
+                        controladorEnemigos.vaciarControlador();
+                        controladorProyectiles.vaciarControlador();
+                        this.spawner.llenarInstrucciones();
+                        this.avatar.reconstruirAvatar();
                     }
                 }
-            } else {
-                if(proyectilTemp.collidesWith(avatar, true)) {
-                    proyectilTemp.detectarColision(true);
+            }
+
+            for (int i = 0; i < controladorEnemigos.getSize() - 1; i++) {
+                Enemigo enemigoTemp = controladorEnemigos.enemigoAt(i);
+                if (enemigoTemp.collidesWith(avatar, true)) {
                     avatar.destruirAvatar();
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
+                    pausaMuerte = true;
+                    int e = 0;
+                    while (e < 2000) {
+                        e += Animador.RETARDO;
                     }
                     this.spawner.vaciarLista();
                     controladorEnemigos.vaciarControlador();
@@ -249,22 +237,6 @@ public class Asili extends GameCanvas {
                     this.spawner.llenarInstrucciones();
                     this.avatar.reconstruirAvatar();
                 }
-            }
-        }
-
-        for(int i = 0; i < controladorEnemigos.getSize() - 1; i++) {
-           Enemigo enemigoTemp = controladorEnemigos.enemigoAt(i);
-            if(enemigoTemp.collidesWith(avatar, true)) {
-                avatar.destruirAvatar();
-                int e = 0;
-                while(e < 2000) {
-                    e += Animador.RETARDO;
-                }
-                this.spawner.vaciarLista();
-                controladorEnemigos.vaciarControlador();
-                controladorProyectiles.vaciarControlador();
-                this.spawner.llenarInstrucciones();
-                this.avatar.reconstruirAvatar();
             }
         }
 
@@ -280,12 +252,14 @@ public class Asili extends GameCanvas {
             }
             this.spawner.setNivel(this.nivel);
             this.spawner.llenarInstrucciones();
+            this.inicioNivel = true;
         }
     }
 
     public void resetNivel() {
         this.spawner.setNivel(nivel);
         this.spawner.llenarInstrucciones();
+        avatarTocable = false;
     }
 
     /**
@@ -294,23 +268,49 @@ public class Asili extends GameCanvas {
      */
     public void actualizar() {
         if (!pausado) {
-            System.out.println(controladorEnemigos);
-            controladorEnemigos.actualizar(this.avatar.getX());
-            this.spawner.comenzarCuenta();
-            avatar.mover();
-            spawner.actualizar(Animador.RETARDO);
-            fondo.actualizar();
-            this.detectarColision();
-            this.invocarEnemigo();
-            controladorProyectiles.actualizar();
-            this.reloj.incrementar(Animador.RETARDO);
-            if (this.pointIsDragged) {
-                this.disparar();
-            }
-            if (this.reloj.getTiempo() >= FIRE_RATE) {
-                this.disparoDesbloqueado = true;
+            if (this.inicioNivel == true) {
+                relojNivel.incrementar(Animador.RETARDO);
+                fondo.actualizar();
+                if (relojNivel.getTiempo() > 3000 && this.inicioNivel == true) {
+                    this.inicioNivel = false;
+                    avatarTocable = true;
+                    relojNivel.resetReloj();
+                }
+
+            } else if (this.pausaMuerte == true) {
+                relojNivel.incrementar(Animador.RETARDO);
+                if (relojNivel.getTiempo() > 3000) {
+                    this.pausaMuerte = false;
+                    fondo.resetearFondo();
+                    avatarTocable = true;
+                    this.resetNivel();
+                    avatar.reconstruirAvatar();
+                    relojNivel.resetReloj();
+                }
+
+            } else {
+                if (this.spawner.juegoTerminado()) {
+                    this.cambiarNivel();
+                }
+                System.out.println(controladorEnemigos);
+                controladorEnemigos.actualizar(this.avatar.getX());
+                this.spawner.comenzarCuenta();
+                avatar.mover();
+                spawner.actualizar(Animador.RETARDO);
+                fondo.actualizar();
+                this.detectarColision();
+                this.invocarEnemigo();
+                controladorProyectiles.actualizar();
+                this.relojDisparos.incrementar(Animador.RETARDO);
+                if (this.pointIsDragged) {
+                    this.disparar();
+                }
+                if (this.relojDisparos.getTiempo() >= FIRE_RATE) {
+                    this.disparoDesbloqueado = true;
+                }
             }
         }
+
 
     }
 
@@ -324,14 +324,34 @@ public class Asili extends GameCanvas {
         this.spriteBotonPausa.dibujar(g);
         controladorProyectiles.dibujar(g);
         this.controladorEnemigos.dibujar(g);
-        g.drawString("Score: " + controladorEnemigos.getScore(), 20, 5, Graphics.LEFT|Graphics.TOP);
-        g.drawString("Vidas: " + avatar.getVidas(), 20, 20, Graphics.LEFT|Graphics.TOP);
-        g.drawString("Nivel: " + nivel, 20, 35, Graphics.LEFT|Graphics.TOP);
-          if(pausado) {
-            g.drawImage(fondoPausa, 0, 0, Graphics.LEFT|Graphics.TOP);
-
+        g.drawString("Score: " + controladorEnemigos.getScore(), 20, 5, Graphics.LEFT | Graphics.TOP);
+        g.drawString("Vidas: " + avatar.getVidas(), 20, 20, Graphics.LEFT | Graphics.TOP);
+        g.drawString("Nivel: " + nivel, 20, 35, Graphics.LEFT | Graphics.TOP);
+        if (pausado) {
+            g.drawImage(fondoPausa, 0, 0, Graphics.LEFT | Graphics.TOP);
         }
+
+        if(this.inicioNivel == true) {
+            g.drawString("Nivel" + this.nivel, (Asili.ANCHO/2) - 10, (Asili.ALTO/2), Graphics.LEFT | Graphics.TOP);
+            if(this.relojNivel.getTiempo() > 1500)
+                g.drawString("Comenzar!", (Asili.ANCHO/2) - 20, (Asili.ALTO/2) + 15, Graphics.LEFT | Graphics.TOP);
+        }
+ 
         flushGraphics();
+    }
+
+    public void destruir() {
+        this.fondo = null;
+        this.controladorEnemigos = null;
+        this.spriteBotonContinuar = null;
+        this.spriteBotonPausa = null;
+        this.spriteBotonSalir = null;
+        this.spawner = null;
+        this.animador = null;
+        this.avatar = null;
+        this.relojDisparos = null;
+        this.relojNivel = null;
+        this.midlet = null;
     }
 
 }
