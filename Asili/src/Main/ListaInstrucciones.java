@@ -53,11 +53,11 @@ public class ListaInstrucciones {
         switch (nivel) {
 
             case 1:
-                lista.addElement(new Instruccion(2, 2000, 2000));
-                lista.addElement(new Instruccion(2, 2500, 2000));
-                lista.addElement(new Instruccion(2, 3000, 1500));
-                lista.addElement(new Instruccion(2, 3500, 1500));
-                lista.addElement(new Instruccion(2, 4000, 1500));
+                lista.addElement(new Instruccion(2, 5000, 2000));
+                lista.addElement(new Instruccion(2, 5500, 2000));
+                lista.addElement(new Instruccion(2, 6000, 1500));
+                lista.addElement(new Instruccion(2, 6500, 1500));
+                lista.addElement(new Instruccion(2, 7000, 1500));
         }
     }
 

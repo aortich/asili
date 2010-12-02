@@ -56,4 +56,8 @@ public class Fondo {
             //System.out.println(y);
         }
     }
+
+    public void resetearFondo() {
+        this.y = (-imagen.getHeight() + Asili.ALTO);
+    }
 }

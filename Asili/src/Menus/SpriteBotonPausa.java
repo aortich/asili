@@ -7,6 +7,7 @@ package Menus;
 
 import Main.Asili;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
 /**
@@ -18,8 +19,8 @@ public class SpriteBotonPausa extends Sprite {
     /**
      * EL método constructor que toma una imágen, y toma la posición indicada
      */
-    public SpriteBotonPausa() {
-        super(Asili.botonPausa);
+    public SpriteBotonPausa(Image imagen) {
+        super(imagen);
         setPosition(Asili.ANCHO - this.getWidth(), 0);
 
     }
