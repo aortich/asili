@@ -129,7 +129,12 @@ public class Asili extends GameCanvas {
                     && aY >= spriteBotonPausa.getY() && aY <= (spriteBotonPausa.getY() + spriteBotonPausa.getHeight())) {
                 this.pointIsDragged = false;
                 this.pausado = !pausado;
+            } else if (aX >= (spriteBotonContinuar.getX()) && aX <= (spriteBotonContinuar.getX() + spriteBotonContinuar.getWidth())
+                    && aY >= spriteBotonContinuar.getY() && aY <= (spriteBotonContinuar.getY() + spriteBotonContinuar.getHeight())){
+                this.pausado = !pausado;
+                //hay que borrar el botón
             }
+
         }
     }
     /**
@@ -331,6 +336,7 @@ public class Asili extends GameCanvas {
         fondo.dibujar(g);
         avatar.dibujar(g);
         this.spriteBotonPausa.dibujar(g);
+        this.spriteBotonContinuar.dibujar(g);
         controladorProyectiles.dibujar(g);
         this.controladorEnemigos.dibujar(g);
         g.drawString("Score: " + this.score, 20, 5, Graphics.LEFT | Graphics.TOP);
