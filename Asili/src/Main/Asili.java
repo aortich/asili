@@ -178,10 +178,10 @@ public class Asili extends GameCanvas {
         if(spawner.isTime()) {
             switch(spawner.getInstruccionActual().tipoEnemigo) {
                 case 1:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(100, 100, spawner.getInstruccionActual().idleTime, enemigoUno, this.bala2 ));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(30, 30, 100, 100, spawner.getInstruccionActual().idleTime, enemigoUno, this.bala2 ));
                     break;
                 case 2:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(100, 100, spawner.getInstruccionActual().idleTime, enemigoDos, this.balaBola));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(30, 30, 100, 100, spawner.getInstruccionActual().idleTime, enemigoDos, this.balaBola));
                  default:
                      break;
             }
@@ -250,13 +250,14 @@ public class Asili extends GameCanvas {
                         break;
 
                 }
-                this.fondo = new Fondo("/imagenes/FondoNivel" + this.nivel, 2);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             this.spawner.setNivel(this.nivel);
             this.spawner.llenarInstrucciones();
             this.inicioNivel = true;
+        } else {
+            midlet.actualizarApp(8);
         }
     }
 
@@ -285,12 +286,15 @@ public class Asili extends GameCanvas {
                 relojNivel.incrementar(Animador.RETARDO);
                 avatar.actualizar();
                 if (relojNivel.getTiempo() > 3000) {
+
                     avatarTocable = true;
                     this.pausaMuerte = false;
                     fondo.resetearFondo();
                     this.resetNivel();
                     avatar.reconstruirAvatar();
                     relojNivel.resetReloj();
+                    if(avatar.getVidas() < 1)
+                        midlet.actualizarApp(7);
                 }
 
             } else {

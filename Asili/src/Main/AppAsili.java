@@ -161,6 +161,9 @@ public class AppAsili extends MIDlet {
                 
             case 7:
 
+                gameOver = new GameOverCanvas(this);
+                display.setCurrent(gameOver);
+
 
                 asili.destruir();
 

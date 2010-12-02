@@ -253,6 +253,14 @@ public class Animador implements Runnable {
                 creditos.actualizar();
                 break;
 
+            case 8:
+                gameOver.actualizar();
+                break;
+
+            case 9:
+                felicitacion.actualizar();
+                break;
+
 
             default:
                 break;
@@ -288,6 +296,14 @@ public class Animador implements Runnable {
                 break;
             case 7:
                 creditos.dibujar();
+                break;
+
+            case 8:
+                gameOver.dibujar();
+                break;
+
+            case 9:
+                felicitacion.dibujar();
                 break;
 
             default:
