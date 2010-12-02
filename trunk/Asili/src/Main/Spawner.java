@@ -110,6 +110,7 @@ public class Spawner {
 
     public void llenarInstrucciones() {
         this.listaInstrucciones.llenarLista(nivelActual);
+        nivelTerminado = false;
     }
     /**
      * Pasa a la siguiente instrucción. SI la siguiente instrucción es null, el juego termina
