@@ -41,7 +41,7 @@ public class Asili extends GameCanvas {
     private SpriteBotonPausa spriteBotonPausa;
     private SpriteBotonSalir spriteBotonSalir;
 
-    private Image balaAvatarUno, enemigoUno, enemigoDos, bala1, bala2
+    private Image balaAvatarUno, enemigoUno, enemigoDos, enemigoTres, enemigoCuatro, bala1, bala2
     , botonPausa, botonContinuar, botonSalir, fondoPausa, muerte, avatarSprite, balaBola;
    // private static final int LIMITE_PROYECTILES = 30;
    //private int contadorBalas;
@@ -89,6 +89,8 @@ public class Asili extends GameCanvas {
         balaAvatarUno = Image.createImage("/imagenes/Spritebala.png");
         enemigoUno = Image.createImage("/imagenes/enemigoSprite1.png");
         enemigoDos = Image.createImage("/imagenes/enemigoSprite2.png");
+        enemigoTres = Image.createImage("/imagenes/enemigoSprite3.png");
+        enemigoCuatro = Image.createImage("/imagenes/enemigoSprite4.png");
         bala1 = Image.createImage("/imagenes/Spritebala2.png");
         bala2 = Image.createImage("/imagenes/Spritebala3.png");
         botonPausa = Image.createImage("/imagenes/pausa.png");
@@ -271,7 +273,6 @@ public class Asili extends GameCanvas {
             this.inicioNivel = true;
         } else {
             midlet.actualizarApp(8);
-            animador.detener();
         }
     }
 
@@ -309,7 +310,7 @@ public class Asili extends GameCanvas {
                     relojNivel.resetReloj();
                     if(avatar.getVidas() < 1)
                         midlet.actualizarApp(7);
-                        animador.detener();
+                        
                 }
 
             } else {
@@ -346,7 +347,6 @@ public class Asili extends GameCanvas {
         fondo.dibujar(g);
         avatar.dibujar(g);
         this.spriteBotonPausa.dibujar(g);
-        this.spriteBotonContinuar.dibujar(g);
         controladorProyectiles.dibujar(g);
         this.controladorEnemigos.dibujar(g);
         g.drawString("Score: " + this.score, 20, 5, Graphics.LEFT | Graphics.TOP);
@@ -354,6 +354,7 @@ public class Asili extends GameCanvas {
         g.drawString("Nivel: " + nivel, 20, 35, Graphics.LEFT | Graphics.TOP);
         if (pausado) {
             g.drawImage(fondoPausa, 0, 0, Graphics.LEFT | Graphics.TOP);
+            //this.spriteBotonContinuar.dibujar(g);
         }
 
         if(this.inicioNivel == true) {
@@ -366,6 +367,7 @@ public class Asili extends GameCanvas {
     }
 
     public void destruir() {
+        animador.detener();
         this.spawner = null;
         controladorProyectiles = null;
         this.controladorEnemigos = null;
