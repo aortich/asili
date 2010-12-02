@@ -208,6 +208,10 @@ public class AppAsili extends MIDlet {
      *
      * @param unconditional
      */
+    public void terminar (){
+        this.destroyApp(true);
+        notifyDestroyed();
+    }
     public void destroyApp(boolean unconditional) {
     }
 }

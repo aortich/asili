@@ -22,6 +22,7 @@ public class MenuPrincipal extends GameCanvas {
     private SpriteInstrucciones spriteInstrucciones;
     private SpriteHighscores spriteHighscores;
     private SpriteCreditos spriteCreditos;
+    private SpriteSalir spriteSalir;
     private Animador animador;
 
     /**
@@ -42,6 +43,7 @@ public class MenuPrincipal extends GameCanvas {
             spriteInstrucciones = new SpriteInstrucciones(0,3);
             spriteHighscores = new SpriteHighscores (0,3);
             spriteCreditos = new SpriteCreditos (0, 3);
+            spriteSalir = new SpriteSalir (0,3);
             fondo = new FondoMenu("/imagenes/menuPrincipal.jpg");
         } catch (IOException ex) {
             System.out.println("Error de IO");
@@ -89,6 +91,12 @@ public class MenuPrincipal extends GameCanvas {
             midlet.actualizarApp(5);
             System.out.println("Creditos");
         }
+        if (aX >= (spriteSalir.getX()) && aX <= (spriteSalir.getX() + spriteSalir.getWidth())
+                && aY >= spriteSalir.getY() && aY <= (spriteSalir.getY() + spriteSalir.getHeight())) {
+            midlet.terminar();
+            
+            
+        }
 
     }
 
@@ -102,6 +110,7 @@ public class MenuPrincipal extends GameCanvas {
         spriteInstrucciones.dibujar(g);
         spriteHighscores.dibujar(g);
         spriteCreditos.dibujar(g);
+        spriteSalir.dibujar(g);
 
         flushGraphics();
 

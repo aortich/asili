@@ -21,7 +21,7 @@ public class SpriteBotonContinuar extends Sprite {
      */
     public SpriteBotonContinuar(Image imagen) {
         super(imagen);
-        setPosition(Asili.ANCHO/2, (Asili.ALTO/2));
+        setPosition(100, 0);
     }
 
     /**
