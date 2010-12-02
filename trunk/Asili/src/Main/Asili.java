@@ -10,6 +10,7 @@ import Objetos.ControladorEnemigos;
 import Objetos.ControladorProyectil;
 import Objetos.Enemigo;
 import Objetos.EnemigoDos;
+import Objetos.EnemigoTres;
 import Objetos.EnemigoUno;
 import Objetos.Fondo;
 import Objetos.Proyectil;
@@ -181,12 +182,19 @@ public class Asili extends GameCanvas {
      */
     public void invocarEnemigo() {
         if(spawner.isTime()) {
-            switch(spawner.getInstruccionActual().tipoEnemigo) {
+            switch(spawner.getInstruccionActual().getTipoEnemigo()) {
                 case 1:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(30, 30, 100, 100, spawner.getInstruccionActual().idleTime, enemigoUno, this.bala2 ));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoUno(spawner.getInstruccionActual().getX(), spawner.getInstruccionActual().getY(), 100, 100, spawner.getInstruccionActual().getIdleTime(), enemigoUno, this.balaBola ));
                     break;
                 case 2:
-                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(30, 30, 100, 100, spawner.getInstruccionActual().idleTime, enemigoDos, this.balaBola));
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(spawner.getInstruccionActual().getX(), spawner.getInstruccionActual().getY(), 100, 100, spawner.getInstruccionActual().getIdleTime(), enemigoDos, this.balaBola));
+                    break;
+                case 3:
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoTres(spawner.getInstruccionActual().getX(), spawner.getInstruccionActual().getY(), 100, 100, spawner.getInstruccionActual().getIdleTime(), enemigoDos, this.balaBola));
+                    break;
+                case 4:
+                    this.controladorEnemigos.agregarEnemigo(new EnemigoDos(spawner.getInstruccionActual().getX(), spawner.getInstruccionActual().getY(), 100, 100, spawner.getInstruccionActual().getIdleTime(), enemigoDos, this.balaBola));
+                    break;
                  default:
                      break;
             }
@@ -263,6 +271,7 @@ public class Asili extends GameCanvas {
             this.inicioNivel = true;
         } else {
             midlet.actualizarApp(8);
+            animador.detener();
         }
     }
 
@@ -300,6 +309,7 @@ public class Asili extends GameCanvas {
                     relojNivel.resetReloj();
                     if(avatar.getVidas() < 1)
                         midlet.actualizarApp(7);
+                        animador.detener();
                 }
 
             } else {

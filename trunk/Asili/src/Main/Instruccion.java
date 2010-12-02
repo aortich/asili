@@ -14,15 +14,19 @@ public class Instruccion {
     /**
      * El tipo de Enemigo
      */
-    public int tipoEnemigo;
+    private int tipoEnemigo;
     /**
      * El tiempo en milisegundos en el que aparece el Enemigo
      */
-    public int tiempoAparicion;
+    private int tiempoAparicion;
     /**
      * EL tiempo que el enemigo puede permanecer en pantalla, antes de desaparecer
      */
-    public int idleTime;
+    private int idleTime;
+    
+    private int x, y;
+
+
 
     /**
      *
@@ -30,10 +34,12 @@ public class Instruccion {
      * @param aparicion - El tiempo que tarda en aparecer un nuevo enemigo, en milisegundos
      * @param idle - EL tiempo en el que se queda un enemigo, antes de desaparecer.
      */
-    public Instruccion(int enemigo, int aparicion, int idle){
+    public Instruccion(int x, int y, int enemigo, int aparicion, int idle){
         this.tipoEnemigo = enemigo;
         this.tiempoAparicion = aparicion;
         this.idleTime = idle;
+        this.x = x;
+        this.y = y;
     }
 
     int getTiempoAparicion() {
@@ -46,6 +52,14 @@ public class Instruccion {
 
     int getIdleTime() {
       return this.idleTime;
+    }
+
+    int getX() {
+        return x;
+    }
+
+    int getY() {
+        return y;
     }
 
 
