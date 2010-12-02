@@ -79,19 +79,21 @@ public class AppAsili extends MIDlet {
                     ex.printStackTrace();
                 }
                 display.setCurrent(asili);
-
+                /*
                 splash = null;
                 tramaCanvas = null;
                 menuPrincipal = null;
                 instruccionesCanvas = null;
                 hiScores = null;
                 creditosCanvas = null;
-                
+
+                 * 
+                 */
                 break;
             case 2:
                 tramaCanvas= new TramaCanvas(this);
                 display.setCurrent(tramaCanvas);
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -101,11 +103,13 @@ public class AppAsili extends MIDlet {
                 menuPrincipal = null;
                 creditosCanvas = null;
 
+                 *
+                 */
                 break;
             case 3:
                 instruccionesCanvas = new InstruccionesCanvas(this);
                 display.setCurrent (instruccionesCanvas);
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -115,11 +119,13 @@ public class AppAsili extends MIDlet {
                 menuPrincipal = null;
                 creditosCanvas = null;
 
+                 *
+                 */
                 break;
             case 4:
                 hiScores = new HiSCanvas(this);
                 display.setCurrent (hiScores);
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -129,11 +135,13 @@ public class AppAsili extends MIDlet {
                 menuPrincipal = null;
                 creditosCanvas = null;
 
+                 *
+                 */
                 break;
             case 5:
                 creditosCanvas = new CreditosCanvas (this);
                 display.setCurrent (creditosCanvas);
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -142,12 +150,14 @@ public class AppAsili extends MIDlet {
                 menuPrincipal = null;
                 instruccionesCanvas = null;
                 hiScores = null;
+                 *
+                 */
 
                 break;
             case 6:
                 menuPrincipal = new MenuPrincipal(this);
                 display.setCurrent(menuPrincipal);
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -157,6 +167,8 @@ public class AppAsili extends MIDlet {
                 hiScores = null;
                 creditosCanvas = null;
 
+                 *
+                 */
                 break;
                 
             case 7:
@@ -164,7 +176,7 @@ public class AppAsili extends MIDlet {
                 gameOver = new GameOverCanvas(this);
                 display.setCurrent(gameOver);
 
-
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -173,6 +185,8 @@ public class AppAsili extends MIDlet {
                 instruccionesCanvas = null;
                 hiScores = null;
                 creditosCanvas = null;
+                 *
+                 */
 
                 break;
 
@@ -180,6 +194,7 @@ public class AppAsili extends MIDlet {
                 felicitacion = new FelicitacionCanvas(this);
                 display.setCurrent(felicitacion);
 
+                /*
                 asili.destruir();
 
                 asili = null;
@@ -188,7 +203,9 @@ public class AppAsili extends MIDlet {
                 instruccionesCanvas = null;
                 hiScores = null;
                 creditosCanvas = null;
-                
+
+                 * 
+                 */
                 break;
 
 

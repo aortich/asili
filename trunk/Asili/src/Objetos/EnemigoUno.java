@@ -23,6 +23,7 @@ public class EnemigoUno extends Enemigo {
         this.setPosition(x, y);
         int tiempo = 0;
         this.setRefPixelPosition(ancho/2, alto);
+        this.setFrame(4);
         super.valor = 100;
         bala = imagenBala;
 
