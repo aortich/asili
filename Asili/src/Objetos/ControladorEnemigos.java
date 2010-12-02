@@ -80,10 +80,10 @@ public class ControladorEnemigos {
      * Actualiza la posición y estado de todos los enemigos en el Vector
      * @param avatarX - La posición actual de X, para realizar algunas maniobras.
      */
-    public void actualizar(int avatarX) {
+    public void actualizar(int avatarX, int avatarY, int retardo) {
         for(int i = 0; i < this.contenedor.size() - 1; i++) {
             Enemigo temporal = (Enemigo) this.contenedor.elementAt(i);
-            temporal.actualizar(avatarX);
+            temporal.actualizar(avatarX, avatarY, retardo);
             if(temporal.destruido) {
                 this.score = score + temporal.valor;
                 this.contenedor.removeElementAt(i);

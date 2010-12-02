@@ -1,48 +1,50 @@
 package Menus;
 
 
+
+
 import Main.Animador;
 import Main.AppAsili;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
+
 /**
- *EL Canvas con las puntaciones más altas
- * @author Alberto Ortiz
+ *Canvas de Game Over
+ * @author Fernando Moreno
  */
-public class HiSCanvas extends GameCanvas {
+public class GameOverCanvas extends GameCanvas {
+
 
     private AppAsili midlet;
     private Graphics g;
     private FondoMenu fondo;
     private Animador animador;
 
-
-
     /**
      *
      * @param midlet - El midlet AppAsili que controla el display
      */
-    public HiSCanvas(AppAsili midlet) {
+    public GameOverCanvas(AppAsili midlet) {
         super(true);
+
 
         this.midlet = midlet;
         this.setFullScreenMode(true);
         g = this.getGraphics();
         try {
-            fondo = new FondoMenu("/imagenes/highscores.jpg");
+            fondo = new FondoMenu("/imagenes/gameOver.jpg");
         } catch (IOException ex) {
             System.out.println("Error de IO en clase HiSCanvas");
             ex.printStackTrace();
         }
 
-
         animador = new Animador(this);
         animador.iniciar();
 
-    }
 
+    }
 
     /**
      *
@@ -53,23 +55,25 @@ public class HiSCanvas extends GameCanvas {
        midlet.actualizarApp(0);
        animador.detener();
 
+
     }
 
+
     /**
-     * EL método que dibuja el Canvas
+     * El método que dibuja el Game Over en la pantalla
      */
     public void dibujar(){
         fondo.dibujar(g);
         this.flushGraphics();
 
-    }
-    //probable animación
 
+    }
 
     /**
-     * El método que actualiza el canvas.
+     * EL método actualizar
      */
     public void actualizar() {
-        
+
+
     }
 }

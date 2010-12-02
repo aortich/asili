@@ -15,6 +15,7 @@ public class BalaEnemigo extends Proyectil {
 
     public BalaEnemigo(int velocidadH, int velocidadV, int x, int y, int dano, int ancho, int alto, Image imagen) {
         super(velocidadH, velocidadV, x, y, dano, ancho, alto, false, imagen);
+        super.setPosition(x, y);
     }
 
 }

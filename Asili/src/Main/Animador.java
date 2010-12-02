@@ -2,6 +2,8 @@ package Main;
 
 
 import Menus.CreditosCanvas;
+import Menus.FelicitacionCanvas;
+import Menus.GameOverCanvas;
 import Menus.HiSCanvas;
 import Menus.InstruccionesCanvas;
 import Menus.MenuPrincipal;
@@ -23,7 +25,8 @@ public class Animador implements Runnable {
     private InstruccionesCanvas instrucciones;
     private HiSCanvas hScores;
     private CreditosCanvas creditos;
-    private Enemigo enemigo;
+    private GameOverCanvas gameOver;
+    private FelicitacionCanvas felicitacion;
     private boolean corriendo;
     private Thread thread;
     private static final int FPS = 50;
@@ -43,10 +46,11 @@ public class Animador implements Runnable {
         this.asili = juego;
         this.caso = 1;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
         this.hScores = null;
         this.creditos = null;
+        this.gameOver = null;
     }
 
     /**
@@ -59,10 +63,11 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 2;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
         this.hScores = null;
         this.creditos = null;
+        this.gameOver = null;
     }
 
     /**
@@ -75,10 +80,11 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 3;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
         this.hScores = null;
         this.creditos = null;
+        this.gameOver = null;
     }
     /**
      *
@@ -90,10 +96,11 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 4;
         this.trama = trama;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
         this.hScores = null;
         this.creditos = null;
+        this.gameOver = null;
     }
 
     /**
@@ -106,10 +113,11 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 5;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = instrucciones;
         this.hScores = null;
         this.creditos = null;
+        this.gameOver = null;
     }
 
     /**
@@ -122,10 +130,11 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 6;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
         this.hScores = hScores;
         this.creditos = null;
+        this.gameOver = null;
     }
 
     /**
@@ -138,10 +147,39 @@ public class Animador implements Runnable {
         this.asili = null;
         this.caso = 7;
         this.trama = null;
-        this.enemigo = null;
+        this.felicitacion = null;
         this.instrucciones = null;
-        this.hScores = hScores;
+        this.hScores = null;
         this.creditos = creditos;
+        this.gameOver = null;
+
+    }
+
+      public Animador(GameOverCanvas gameOver) {
+        this.menu = null;
+        this.splash = null;
+        this.asili = null;
+        this.caso = 8;
+        this.trama = null;
+        this.felicitacion = null;
+        this.instrucciones = null;
+        this.hScores = null;
+        this.creditos = null;
+        this.gameOver = gameOver;
+
+    }
+
+    public Animador(FelicitacionCanvas felicitacion) {
+        this.menu = null;
+        this.splash = null;
+        this.asili = null;
+        this.caso = 9;
+        this.trama = null;
+        this.felicitacion = felicitacion;
+        this.instrucciones = null;
+        this.hScores = null;
+        this.creditos = null;
+        this.gameOver = null;
 
     }
 
